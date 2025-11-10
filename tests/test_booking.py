@@ -10,13 +10,15 @@ def test_booking_init():
     assert booking.space_id == 0
     assert booking.renter_id == 0 #user id
 
-def test_booking_compare():
+def test_booking_compare_equal():
     now = datetime.now()
     booking1 = Booking(1, now, False, 0, 0)
     booking2 = Booking(1, now, False, 0, 0)
 
     assert booking1 == booking2
 
+def test_booking_compare_unequal():
+    now = datetime.now()
     booking1 = Booking(3, now, True, 2, 10)
     booking2 = Booking(1, now, False, 0, 0)
 
