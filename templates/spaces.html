@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <h1>Spaces</h1>
+    
+    {% for space in spaces %}
+      <div>
+        Name: {{space.name}}
+        Description: {{space.description}}
+        Price: {{space.price}}
+        User_id: {{space.user_id}}</div>
+    {% endfor %}
+
+    
+  </body>
+</html>
