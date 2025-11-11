@@ -24,3 +24,12 @@ def test_availability_format():
     end_date = datetime(2026,1,1)
     availability = Availability(1,start_date.strftime("%x"), end_date.strftime("%x"),1)
     assert str(availability) == "Availability (1, 01/01/25, 01/01/26, 1)"
+
+def test_dates_not_equal():
+    start_date1 = datetime(2025,1,1)
+    end_date1 = datetime(2026,1,1)
+    start_date2 = datetime(2026,1,1)
+    end_date2 = datetime(2027,1,1)
+    availability1 = Availability(1,start_date1.strftime("%x"), end_date1.strftime("%x"),1)
+    availability2 = Availability(1,start_date2.strftime("%x"), end_date2.strftime("%x"),1)
+    assert availability1 != availability2
