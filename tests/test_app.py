@@ -1,6 +1,6 @@
 from playwright.sync_api import Page, expect
 
-def test_get_spaces(page, test_web_address, db_connection): 
+def get_spaces(page, test_web_address, db_connection): 
     db_connection.seed("seeds/makersbnb.sql")
    
     page.goto(f"http://{test_web_address}/spaces")
@@ -30,3 +30,15 @@ def test_get_index(page, test_web_address):
 
     # We assert that it has the text "This is the homepage."
     expect(p_tag).to_have_text("This is the homepage.")
+
+
+def test_get_space_availability(db_connection, web_client):
+    db_connection.seed("seeds/makersbnb.sql")
+
+    response = web_client.get("/spaces/1/availability")
+
+    assert response.status_code == 200
+    assert response.data.decode("utf-8") == "\n".join([
+        "Availability (1, 2025-11-01, 2025-11-15, 1)",
+        "Availability (2, 2025-12-01, 2025-12-20, 1)",
+    ])
