@@ -24,6 +24,7 @@ CREATE TABLE spaces (
 CREATE TABLE bookings (
   id SERIAL PRIMARY KEY,
   date DATE NOT NULL,
+  confirmed BOOLEAN NOT NULL,
   space_id INT NOT NULL,
   CONSTRAINT fk_bookings_space FOREIGN KEY(space_id) REFERENCES spaces(id) ON DELETE CASCADE,
   user_id INT NOT NULL,
@@ -66,10 +67,10 @@ INSERT INTO availabilities (start_date, end_date, space_id) VALUES
 ('2025-11-10', '2025-11-20', 6);
 
 -- Seed bookings (each by different users)
-INSERT INTO bookings (date, space_id, user_id) VALUES
-('2025-11-05', 1, 2), -- Sabia books Isaac's apartment
-('2025-11-10', 2, 3), -- Sam books Sabia's cottage
-('2025-12-12', 3, 4), -- Anna books Sam's cabin
-('2025-11-18', 4, 5), -- Nazarii books Anna's loft
-('2025-12-05', 5, 6), -- Margot books Nazarii's retreat
-('2025-11-12', 6, 1); -- Isaac books Margot's studio
+INSERT INTO bookings (date, confirmed, space_id, user_id) VALUES
+('2025-11-05', false, 1, 2), -- Sabia books Isaac's apartment
+('2025-11-10', false, 2, 3), -- Sam books Sabia's cottage
+('2025-12-12', true, 3, 4), -- Anna books Sam's cabin
+('2025-11-18', true, 4, 5), -- Nazarii books Anna's loft
+('2025-12-05', false, 5, 6), -- Margot books Nazarii's retreat
+('2025-11-12', true, 6, 1); -- Isaac books Margot's studio
