@@ -1,0 +1,116 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+li {
+    list-style: none;
+}
+
+ul {
+    padding: 0px;
+}
+
+html {
+--orange-accent: #ff385d;
+--grey-accent: #f9f9f9;
+--grey-dark-accent: #ebebeb;
+}
+
+body {
+    font-size: 16px;
+    font-family: "Monteserrat", sans-serif;
+}
+
+.header {
+    font-size: 18px;
+    background-color: var(--grey-accent);
+    border-bottom: 1px solid var(--grey-dark-accent);
+    padding: 10px 30px;
+}
+
+.header > ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    color: var(--orange-accent);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logo-img {
+    width: 30px;
+}
+
+.links > ul {
+    display: flex;
+    gap: 10px;
+}
+
+.content {
+    height: 100px;
+}
+
+.footer {
+    padding: 10px 30px;
+    background-color: var(--grey-accent);
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid var(--grey-dark-accent);
+}
