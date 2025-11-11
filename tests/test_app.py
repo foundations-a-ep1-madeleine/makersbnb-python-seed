@@ -1,6 +1,6 @@
 from playwright.sync_api import Page, expect
 
-def get_spaces(page, test_web_address, db_connection): 
+def test_get_spaces(page, test_web_address, db_connection): 
     db_connection.seed("seeds/makersbnb.sql")
    
     page.goto(f"http://{test_web_address}/spaces")
