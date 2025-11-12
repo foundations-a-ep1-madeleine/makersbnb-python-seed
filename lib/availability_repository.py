@@ -1,5 +1,5 @@
 from lib.availability import *
-
+from datetime import date 
 class AvailabilityRepository():
     
     def __init__(self, connection):
@@ -50,3 +50,15 @@ class AvailabilityRepository():
     def delete(self,id):
         self._connection.execute('DELETE FROM availabilities WHERE id = %s',[id])
         return None
+
+def is_date_available(self, space_id, booking_date):
+        if isinstance(booking_date, str):
+            booking_date = date.fromisoformat(booking_date)
+
+        available_periods = self.find_by_space_id(space_id)
+
+        for period in available_periods:
+            if period.start_date <= booking_date <= period.end_date:
+                return True
+
+        return False
