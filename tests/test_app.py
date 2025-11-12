@@ -1,6 +1,7 @@
 from playwright.sync_api import Page, expect
 import re
 from datetime import date
+import json
 
 def test_get_spaces(page, test_web_address, db_connection):
     db_connection.seed("seeds/makersbnb.sql")
@@ -51,10 +52,25 @@ def test_get_space_availability(db_connection, web_client):
     response = web_client.get("/spaces/1/availability")
 
     assert response.status_code == 200
-    assert response.data.decode("utf-8") == "\n".join([
-        "Availability (1, 2025-11-01, 2025-11-15, 1)",
-        "Availability (2, 2025-12-01, 2025-12-20, 1)",
-    ])
+
+    expected_json = [
+        {
+            "id": 1,
+            "start_date": "2025-11-01",
+            "end_date": "2025-11-15",
+            "space_id": 1,
+        },
+        {
+            "id": 2,
+            "start_date": "2025-12-01",
+            "end_date": "2025-12-20",
+            "space_id": 1,
+        }
+    ]
+
+    json_string = response.data.decode("utf-8")
+    actual_data = json.loads(json_string)
+    assert actual_data == expected_json
 
 def test_post_space_availability(db_connection, web_client):
     db_connection.seed("seeds/makersbnb.sql")
