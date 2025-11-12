@@ -1,6 +1,6 @@
 
 from lib.availability import *
-from datetime import datetime
+from datetime import datetime, date
 
 
 def test_availability_constructors():
@@ -11,6 +11,17 @@ def test_availability_constructors():
     assert availability.start_date == "01/01/25"
     assert availability.end_date == "01/01/26"
     assert availability.space_id == 1
+
+def test_availability_dict():
+    start_date = date(2025,1,1)
+    end_date = date(2026,1,1)
+    availability = Availability(1,start_date, end_date,1)
+    assert availability.to_dict() == {
+        "id": 1,
+        "start_date": "2025-01-01",
+        "end_date": "2026-01-01",
+        "space_id": 1
+    }
 
 def test_availability_are_equal():
     start_date = datetime(2025,1,1)
