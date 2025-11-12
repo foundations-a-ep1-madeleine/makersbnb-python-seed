@@ -90,11 +90,25 @@ def test_post_space_availability(db_connection, web_client):
     response = web_client.get("/spaces/2/availability")
 
     assert response.status_code == 200
-    assert response.data.decode("utf-8") == "\n".join([
-        "Availability (3, 2025-11-05, 2025-11-25, 2)",
-        "Availability (8, 2025-05-27, 2025-05-29, 2)"
-    ])
+    # assert response.data.decode("utf-8") == "\n".join([
+    #     "Availability (3, 2025-11-05, 2025-11-25, 2)",
+    #     "Availability (8, 2025-05-27, 2025-05-29, 2)"
+    # ])
 
+    expected_json = [
+        {
+            "id": 3,
+            "start_date": "2025-11-05",
+            "end_date": "2025-11-25",
+            "space_id": 2,
+        },
+        {
+            "id": 8,
+            "start_date": "2025-05-27",
+            "end_date": "2025-05-29",
+            "space_id": 2,
+        },
+    ]
 
     json_string = response.data.decode("utf-8")
     actual_data = json.loads(json_string)
