@@ -63,3 +63,7 @@ def test_post_space_availability(db_connection, web_client):
         "Availability (3, 2025-11-05, 2025-11-25, 2)",
         "Availability (8, 2025-05-27, 2025-05-29, 2)"
     ])
+
+    """
+    test get bookings 
+    """

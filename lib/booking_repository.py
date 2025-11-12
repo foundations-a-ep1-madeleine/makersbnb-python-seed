@@ -1,5 +1,6 @@
 from lib.booking import Booking
 
+
 class BookingRepository:
 
     def __init__(self, connection):
@@ -34,6 +35,20 @@ class BookingRepository:
             booking_list.append(Booking(booking["id"], booking["date"], booking["confirmed"], booking["space_id"], booking["user_id"]))
         return booking_list
     
+    def get_host_id_from_booking_id(self):
+        return None
+    
+    # Return a list of bookings given a host id
+    def get_by_host(self):
+        host_id = get_host_id_from_booking_id(self)
+        bookings = self._connection.execute(
+            'SELECT bookings.id AS booking.id, bookings.date, bookings.confirmed, bookings.space_id, bookings.user_id AS guest_id, spaces.name AS space_name, hosts.name AS host_name FROM bookings JOIN spaces ON bookings.space_id = spaces.id JOIN users AS hosts ON spaces.user_id = hosts.id WHERE hosts.id = %s ORDER BY bookings.date', [host_id])
+        bookings_list = []
+        for booking in bookings:
+            booking_list.append(Booking())
+        
+
+
     # Creates a new booking
     def create(self, booking):
         self._connection.execute('INSERT INTO bookings (date, confirmed, space_id, user_id) VALUES (%s, %s, %s, %s)', [

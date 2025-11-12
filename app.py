@@ -5,6 +5,8 @@ from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
 from lib.space_repository import SpaceRepository
 from lib.space import Space
+from lib.booking import Booking
+from lib.booking_repository import BookingRepository
 from lib.date_serialization import string_to_date
 
 
@@ -59,6 +61,21 @@ def create_space_availability():
     repository = AvailabilityRepository(connection)
     repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
     return "Availability added"
+
+@app.route('/requests', methods = ['GET'])
+def get_all_bookings():
+    connection = get_flask_database_connection(app)
+    repository = BookingRepository(connection)
+    bookings = repository.all()
+    return render_template('requests.html', bookings=bookings)
+
+
+# @app.route('/requests/confirmed', methods = ['GET'])
+# def 
+
+# @app.route('')
+
+
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
