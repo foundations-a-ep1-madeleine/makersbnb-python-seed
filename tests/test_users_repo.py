@@ -1,55 +1,51 @@
-from lib import user
-class UserRepository:
-    def init(self, connection):
+from lib.user_repository import UserRepository
+from lib.user import User
+from datetime import datetime
+
+def test_get_all_users(db_connection):
+    db_connection.seed("seeds/makersbnb_seed.sql")
+    repository = UserRepository(db_connection)
+    users = repository.all()
+
+   
+    assert len(users) == 6
+
+    assert users[0].name == 'Isaac Madgewick'
+    assert users[0].email == 'isaacm@example.com'
+    assert users[0].password_hash == 'hash_for_isaac'
+    assert isinstance(users[0].created_at, datetime)
+
+    assert users[5].name == 'Margot Bourne'
+    assert users[5].email == 'margotb@example.com'
+    assert users[5].password_hash == 'hash_for_margot'
+
+def test_find_user_by_id(db_connection):
+    db_connection.seed("seeds/makersbnb_seed.sql")
+    repository = UserRepository(db_connection)
+    user = repository.find(2) 
+    assert user.name == 'Sabia Jeyaratnam'
+    assert user.email == 'sabiaj@example.com'
+
+def test_create_user(db_connection):
+    db_connection.seed("seeds/makersbnb_seed.sql")
+    repository = UserRepository(db_connection)
+
+    new_user = User(None, "Test User", "test@example.com", "test_hash")
+    repository.create(new_user)
+
+    all_users = repository.all()
+   
+    assert len(all_users) == 7
+    assert all_users[-1].name == "Test User"
+
+def test_delete_user(db_connection):
+    db_connection.seed("seeds/makersbnb_seed.sql")
+    repository = UserRepository(db_connection)
+    repository.delete(1) 
+
+    all_users = repository.all()
     
-        self._connection = connection
-
-    def all(self):
-        
-
-        rows = self._connection.execute('SELECT * FROM users')
-        users = []
-        for row in rows:
-            user = user(row["id"], row["name"], row["email"], row["password"])
-            users.append(user)
-        return users
-
-    def find(self, user_id):
-        
-        rows = self._connection.execute(
-            'SELECT * FROM users WHERE id = %s', [user_id])
-        if not rows:
-            return None
-        row = rows[0]
-        return user(row["id"], row["name"], row["email"], row["password"])
-
-    def find_by_email(self, email):
-        rows = self._connection.execute('SELECT * FROM users WHERE email = %s', [email])
-        if not rows:
-            return None
-        row = rows[0]
-        return user(row["id"], row["name"], row["email"], row["password"])
-
-    def create(self, user):
-        
-        self._connection.execute(
-            'INSERT INTO users (name, email, password) VALUES (%s, %s, %s)',
-            [user.name, user.email, user.password]
-        )
-        return None
-
-    def update(self, user):
-      
-        self._connection.execute(
-            'UPDATE users SET name = %s, email = %s, password = %s WHERE id = %s',
-            [user.name, user.email, user.password, user.id]
-        )
-        return None
-
-    def delete(self, user_id):
-     
-        self._connection.execute(
-            'DELETE FROM users WHERE id = %s', [user_id]
-        )
-        return None
+    assert len(all_users) == 5
+    
+    assert all_users[0].name == 'Sabia Jeyaratnam'
 
