@@ -76,3 +76,604 @@
 127.0.0.1 - - [11/Nov/2025 15:59:17] "GET /static/style.css HTTP/1.1" 200 -
 /Users/margotbourne/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
   warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4627
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4212
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:24:37] "GET /index HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:24:37] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4522
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:26:20] "GET /spaces HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4532
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:26:20] "GET /index HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:26:20] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4697
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:31:48] "GET /spaces HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4382
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:31:48] "GET /index HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:48] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4788
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:31:49] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:49] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:49] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:49] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4656
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:31:50] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:50] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:50] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:50] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4749
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:31:55] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:55] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:55] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:55] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4563
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:31:56] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:56] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:56] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:56] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4502
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:31:57] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:57] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:57] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:31:57] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4511
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:32:39] "GET /spaces HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4788
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:32:39] "GET /index HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:39] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4675
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:32:40] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:40] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:40] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:40] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4274
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:32:40] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:40] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:40] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:40] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4816
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:32:41] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:41] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:41] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:41] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4433
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:32:42] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:42] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:42] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:42] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4190
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:32:43] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:43] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:43] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:32:43] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4774
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:17] "GET /spaces HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4692
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:18] "GET /index HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:18] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4247
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:18] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:18] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:18] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:18] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4320
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:19] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:19] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:19] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:19] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4127
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:20] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:20] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:20] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:20] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4777
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:20] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:20] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:20] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:20] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4716
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:21] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:21] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:21] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:21] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4156
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:22] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:22] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:22] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:22] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4626
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:22] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:23] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:23] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:23] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4370
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:23] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:23] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:23] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:23] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4450
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:29] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:29] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:29] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:29] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4694
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:30] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:30] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:30] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:30] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4754
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:58] "GET /spaces HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4885
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:59] "GET /index HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:59] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4044
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:37:59] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:59] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:59] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:37:59] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:237: UserWarning: resource_tracker: '/mp-2yngenjn': [Errno 2] No such file or directory
+  warnings.warn('resource_tracker: %r: %s' % (name, e))
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4431
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:00] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:00] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:00] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:00] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4221
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:01] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:01] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:01] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:01] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4403
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:01] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:01] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:01] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:01] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4569
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:02] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:02] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:02] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:02] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4633
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:03] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:03] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:03] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:03] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4020
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:03] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:03] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:03] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:03] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4626
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:04] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:04] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:04] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:04] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4021
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:05] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:05] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:05] "GET /static/logo.webp HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:05] "GET /static/styles/style.css HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+@@__xproc_block_delimiter__@@
+ * Serving Flask app 'app'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:4364
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 142-636-713
+127.0.0.1 - - [12/Nov/2025 11:38:06] "GET /signup HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:06] "GET /static/styles/login-signup.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:06] "GET /static/styles/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2025 11:38:06] "GET /static/logo.webp HTTP/1.1" 200 -
+/Users/sam/.pyenv/versions/3.11.2/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

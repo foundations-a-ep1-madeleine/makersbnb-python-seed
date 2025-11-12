@@ -13,6 +13,14 @@ app = Flask(__name__)
 
 # == Your Routes Here ==
 
+@app.route('/login', methods=['GET'])
+def serve_login():
+     return render_template('login.html')
+
+@app.route('/signup', methods=['GET'])
+def serve_signup():
+     return render_template('signup.html')
+
 @app.route('/spaces', methods=['GET'])
 def get_space():
     connection = get_flask_database_connection(app)
