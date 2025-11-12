@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/style.css" >
+    <link rel="stylesheet" href="/static/styles/login-signup.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Makersbnb</title>
+</head>
+<body>
+    <nav class="header">
+        <ul>
+            <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="airbnb logo"><p>makersbnb</p></li>
+            <li class="links">
+                <ul>
+                    <li><a href="/login">Log in</a></li>
+                    <p>|</p>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!-- Content here -->
+    <div class="content">
+        <div class="copy">
+            <h2>Welcome to the Neighborhood</h2>
+            <p>Become part of a global community of travelers and hosts. Sign up to begin your adventure.</p>
+        </div>
+        <form action="/submit-signup" method="POST" class="signup-form">
+            <h2 class="signup-title">Sign-up</h2>
+            <div class="name-container input-container">
+                <input type="text" id="name" name="name" placeholder=" " required>
+                <label for="name">Full Name</label>
+            </div>
+            <div class="email-container input-container">
+                <input type="email" id="email" name="email" placeholder=" " required>
+                <label for="email">Email Address</label>
+            </div>
+            <div class="password-container input-container">
+                <input type="password" id="password" name="password" placeholder=" " required minlength="8">
+                <label for="password">Password</label>
+            </div>
+            <input type="submit" value="Sign-up">
+        </form>
+    </div>
+    <!-- Content here -->
+    <footer class="footer">
+        <p class="copyright">©2025 Makers Academy</p>
+        <p>Created by:</p>
+        <p><a href="https://github.com/isaac-madgwick">Isaac Madgewick</a></p>
+        <p><a href="https://github.com/AnyaVeselova">Anna Veselova</a></p>
+        <p><a href="https://github.com/Supersabjey">Sabia Jeyaratnam</a></p>
+        <p><a href="https://github.com/Awynnm">Nazarii</a></p>
+        <p><a href="https://github.com/margot-bourne">Margot Bourne</a></p>
+        <p><a href="https://github.com/s111ew">Sam Llewellyn</a></p>
+    </footer>
+</body>
+</html>

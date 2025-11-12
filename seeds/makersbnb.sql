@@ -9,7 +9,8 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   email text NOT NULL UNIQUE,
-  password TEXT NOT NULL
+  password_hash TEXT NOT NULL
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE spaces (
@@ -40,12 +41,12 @@ CREATE TABLE availabilities (
 );
 
 -- Seed users
-INSERT INTO users (name, email, password) VALUES ('Isaac Madgewick', 'isaacm@example.com', 'password123');
-INSERT INTO users (name, email, password) VALUES ('Sabia Jeyaratnam', 'sabiaj@example.com', 'password123');
-INSERT INTO users (name, email, password) VALUES ('Sam Llewellyn', 'saml@example.com', 'password123');
-INSERT INTO users (name, email, password) VALUES ('Anna Veselova', 'annav@example.com', 'password123');
-INSERT INTO users (name, email, password) VALUES ('Nazarii', 'nazarii@example.com', 'password123');
-INSERT INTO users (name, email, password) VALUES ('Margot Bourne', 'margotb@example.com', 'password123');
+INSERT INTO users (name, email, password_hash) VALUES ('Isaac Madgewick', 'isaacm@example.com', 'hash_for_isaac');
+INSERT INTO users (name, email, password_hash) VALUES ('Sabia Jeyaratnam', 'sabiaj@example.com', 'phash_for_sabia');
+INSERT INTO users (name, email, password_hash) VALUES ('Sam Llewellyn', 'saml@example.com', 'hash_for_sam');
+INSERT INTO users (name, email, password_hash) VALUES ('Anna Veselova', 'annav@example.com', 'hash_for_anna');
+INSERT INTO users (name, email, password_hash) VALUES ('Nazarii', 'nazarii@example.com', 'hash_for_nazarii');
+INSERT INTO users (name, email, password_hash) VALUES ('Margot Bourne', 'margotb@example.com', 'hash_for_margot');
 
 -- Seed spaces (Airbnb-style listings)
 INSERT INTO spaces (name, description, price, user_id) VALUES 

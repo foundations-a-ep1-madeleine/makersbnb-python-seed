@@ -1,8 +1,11 @@
 import os
 from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
+from lib.availability_repository import AvailabilityRepository
+from lib.availability import Availability
 from lib.space_repository import SpaceRepository
 from lib.space import Space
+from lib.date_serialization import string_to_date
 
 
 # Create a new Flask app
@@ -16,8 +19,6 @@ def get_space():
     space_repo = SpaceRepository(connection)
     spaces = space_repo.all()
     return render_template('spaces.html', spaces=spaces)
-    
-
 
 @app.route('/spaces', methods=['POST'])
 def create_space():
@@ -34,6 +35,7 @@ def get_space_by_user_id(id):
         space = repository.find(id)
         return render_template('single_space_id.html', space=space)
 
+# == Your Routes Here ==
 
 # GET /index
 # Returns the homepage
@@ -42,6 +44,21 @@ def get_space_by_user_id(id):
 @app.route('/index', methods=['GET'])
 def get_index():
     return render_template('index.html')
+
+@app.route('/spaces/<int:id>/availability', methods=['GET'])
+def get_space_availability(id):
+    connection = get_flask_database_connection(app)
+    repository = AvailabilityRepository(connection)
+    return "\n".join([
+            str(availability) for availability in repository.find_by_space_id(id)
+        ])
+
+@app.route('/spaces/availability', methods=['POST'])
+def create_space_availability():
+    connection = get_flask_database_connection(app)
+    repository = AvailabilityRepository(connection)
+    repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
+    return "Availability added"
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
