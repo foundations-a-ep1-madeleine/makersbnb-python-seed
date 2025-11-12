@@ -5,9 +5,22 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/static/style.css" >
+        <link rel="stylesheet" href="/static/styles/style.css" >
     </head>
     <body>
+        <nav class="header">
+            <ul>
+                <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></li>
+                <li class="links">
+                    <ul>
+                        <li><a href="/sign-up">Sign Up</a></li>
+                        <p>|</p>
+                        <li><a href="/about">About</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
         <div class="homepage-container">
             <header class="homepage-header">
                 <div class="geometric-animation geometric-animation-right">
@@ -46,5 +59,16 @@
                 {% endfor %}
             </div>
         </div>
+
+        <footer class="footer">
+            <p>©2025 Makers Academy</p>
+            <p>Created by:</p>
+            <p><a href="https://github.com/isaac-madgwick">Isaac Madgewick</a></p>
+            <p><a href="https://github.com/AnyaVeselova">Anna Veselova</a></p>
+            <p><a href="https://github.com/Supersabjey">Sabia Jeyaratnam</a></p>
+            <p><a href="https://github.com/Awynnm">Nazarii</a></p>
+            <p><a href="https://github.com/margot-bourne">Margot Bourne</a></p>
+            <p><a href="https://github.com/s111ew">Sam Llewellyn</a></p>
+        </footer>
     </body>
 </html>
