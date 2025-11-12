@@ -1,17 +1,50 @@
 <!DOCTYPE html>
-<html>
-  <head></head>
-  <body>
-    <h1>Spaces</h1>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/style.css" >
+    <link rel="stylesheet" href="/static/styles/login-signup.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Makersbnb</title>
+</head>
+<body>
+    <nav class="header">
+        <ul>
+            <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="airbnb logo"><p>makersbnb</p></li>
+            <li class="links">
+                <ul>
+                    <li><a href="/sign-up">Sign Up</a></li>
+                    <p>|</p>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!-- Content here -->
+    <div class="content">
+       
+            <h1>Spaces</h1>
     
-    {% for space in spaces %}
+
       <div>
         Name: {{space.name}}
         Description: {{space.description}}
         Price: {{space.price}}
-        User_id: {{space.user_id}}</div>
-    {% endfor %}
-
-    
-  </body>
+        User_id: {{space.user_id}}
+    </div>
+    <!-- Content here -->
+    <footer class="footer">
+        <p class="copyright">©2025 Makers Academy</p>
+        <p>Created by:</p>
+        <p><a href="https://github.com/isaac-madgwick">Isaac Madgewick</a></p>
+        <p><a href="https://github.com/AnyaVeselova">Anna Veselova</a></p>
+        <p><a href="https://github.com/Supersabjey">Sabia Jeyaratnam</a></p>
+        <p><a href="https://github.com/Awynnm">Nazarii</a></p>
+        <p><a href="https://github.com/margot-bourne">Margot Bourne</a></p>
+        <p><a href="https://github.com/s111ew">Sam Llewellyn</a></p>
+    </footer>
+</body>
 </html>

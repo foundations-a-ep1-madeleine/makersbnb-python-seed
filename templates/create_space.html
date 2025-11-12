@@ -16,7 +16,7 @@
             <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="airbnb logo"><p>makersbnb</p></li>
             <li class="links">
                 <ul>
-                    <li><a href="/signup">Sign Up</a></li>
+                    <li><a href="/sign-up">Sign Up</a></li>
                     <p>|</p>
                     <li><a href="/about">About</a></li>
                 </ul>
@@ -26,20 +26,29 @@
     <!-- Content here -->
     <div class="content">
         <div class="copy">
-            <h2>Welcome Home</h2>
-            <p>Find your perfect escape. Enter your credentials below to pick up where you left off.</p>
+            <h2>Add Space</h2>
+            <p>Tell us about your space</p>
         </div>
-        <form action="/submit-login" method="POST" class="login-form">
-            <h2 class="login-title">Login</h2>
-            <div class="email-container input-container">
-                <input type="email" id="email" name="email" placeholder=" " required>
-                <label for="email">Email Address</label>
+        <form action="/submit-space" method="POST" class="space-form">
+            <h2 class="space-name">Space</h2>
+            <div class="name-container input-container">
+                <input type="name" id="name" name="Name" placeholder=" " required>
+                <label for="name">Name</label>
+    
             </div>
-            <div class="password-container input-container">
-                <input type="password" id="password" name="password" placeholder=" " required minlength="8">
-                <label for="password">Password</label>
+             <div class="description-container input-container">
+                <input type="description" id="description" name="description" placeholder=" " required>
+                <label for="description">Description</label>
             </div>
-            <input type="submit" value="Log In">
+            <div class="price-container input-container">
+                <input type="price" id="price" name="price" placeholder=" " required>
+                <label for="price">Price</label>
+              </div>
+            <div class="user_id-container input-container">
+                <input type="user_id" id="user_id" name="user_id" placeholder=" " required>
+                <label for="user_id">User_id</label>
+            </div>
+            <input type="submit" value="Submit Space">
         </form>
     </div>
     <!-- Content here -->
