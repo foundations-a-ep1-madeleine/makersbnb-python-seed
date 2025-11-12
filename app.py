@@ -23,7 +23,7 @@ def get_space():
 def create_space():
     connection = get_flask_database_connection(app)
     repository = SpaceRepository(connection)
-    space = Space(None, request.form['name'], request.form['description'], request.form['price', request.form['user_id']])
+    space = Space(None, request.form['name'], request.form['description'], request.form['price'], request.form['user_id'])
     space = repository.create(space)
     return "Space added successfully"
 

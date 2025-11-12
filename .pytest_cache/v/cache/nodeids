@@ -1,0 +1,23 @@
+[
+  "tests/test_app.py::test_get_index[chromium]",
+  "tests/test_app.py::test_get_spaces[chromium]",
+  "tests/test_availability.py::test_availability_are_equal",
+  "tests/test_availability.py::test_availability_constructors",
+  "tests/test_availability.py::test_availability_format",
+  "tests/test_availability.py::test_dates_not_equal",
+  "tests/test_booking.py::test_booking_compare_equal",
+  "tests/test_booking.py::test_booking_compare_unequal",
+  "tests/test_booking.py::test_booking_format",
+  "tests/test_booking.py::test_booking_init",
+  "tests/test_booking_repository.py::test_get_all_bookings",
+  "tests/test_booking_repository.py::test_get_booking",
+  "tests/test_booking_repository.py::test_get_bookings_by_renter_id",
+  "tests/test_booking_repository.py::test_get_bookings_by_space_id",
+  "tests/test_database_connection.py::test_database_connection",
+  "tests/test_space.py::test_space_constructs",
+  "tests/test_space.py::test_spaces_are_equal",
+  "tests/test_space.py::test_spaces_format_nicely",
+  "tests/test_space_repository.py::test_create_space",
+  "tests/test_space_repository.py::test_get_all_spaces",
+  "tests/test_space_repository.py::test_get_single_space"
+]
