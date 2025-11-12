@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from lib.database_connection import get_flask_database_connection
 from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
@@ -49,9 +49,14 @@ def get_index():
 def get_space_availability(id):
     connection = get_flask_database_connection(app)
     repository = AvailabilityRepository(connection)
-    return "\n".join([
-            str(availability) for availability in repository.find_by_space_id(id)
-        ])
+
+    availabilities = repository.find_by_space_id(id)
+
+    availabilities_data = [
+        availability.to_dict() for availability in availabilities
+    ]
+    
+    return jsonify(availabilities_data)
 
 @app.route('/spaces/availability', methods=['POST'])
 def create_space_availability():
