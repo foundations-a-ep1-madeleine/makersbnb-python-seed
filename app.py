@@ -132,6 +132,11 @@ def create_user():
 # Returns the homepage with all spaces
 # Try it:
 #   ; open http://localhost:5001/index
+@app.before_request
+def debug_db_name():
+    conn = get_flask_database_connection(app)
+    print("Connected to database:", conn._database_name())
+    
 @app.route('/index', methods=['GET'])
 def get_index():
     connection = get_flask_database_connection(app)
