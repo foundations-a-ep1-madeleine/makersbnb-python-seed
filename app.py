@@ -5,6 +5,7 @@ from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
 from lib.space_repository import SpaceRepository
 from lib.space import Space
+from lib.date_serialization import string_to_date
 
 
 # Create a new Flask app
@@ -51,6 +52,13 @@ def get_space_availability(id):
     return "\n".join([
             str(availability) for availability in repository.find_by_space_id(id)
         ])
+
+@app.route('/spaces/availability', methods=['POST'])
+def create_space_availability():
+    connection = get_flask_database_connection(app)
+    repository = AvailabilityRepository(connection)
+    repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
+    return "Availability added"
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
