@@ -5,6 +5,7 @@ from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
 from lib.space_repository import SpaceRepository
 from lib.space import Space
+from lib.user_repository import UserRepository
 from lib.date_serialization import string_to_date
 
 
@@ -12,6 +13,22 @@ from lib.date_serialization import string_to_date
 app = Flask(__name__)
 
 # == Your Routes Here ==
+
+@app.route('/login', methods=['GET'])
+def serve_login():
+    return render_template('login.html')
+
+# @app.route('/login', methods=['POST'])
+# def user_login():
+#     connection = get_flask_database_connection(app)
+#     user_repo = UserRepository(connection)
+    
+#     user_email = request.form['email']
+#     user_password = request.form['password']
+
+@app.route('/signup', methods=['GET'])
+def serve_signup():
+    return render_template('signup.html')
 
 @app.route('/spaces', methods=['GET'])
 def get_space():
@@ -30,10 +47,10 @@ def create_space():
 
 @app.route('/spaces/<id>', methods=['GET'])
 def get_space_by_user_id(id):
-        connection = get_flask_database_connection(app)
-        repository = SpaceRepository(connection)
-        space = repository.find(id)
-        return render_template('single_space_id.html', space=space)
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    space = repository.find(id)
+    return render_template('single_space_id.html', space=space)
 
 # == Your Routes Here ==
 
