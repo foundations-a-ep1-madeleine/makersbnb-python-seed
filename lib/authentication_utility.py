@@ -12,7 +12,7 @@ def hash_password(password):
 # depending on if they are the same
 def compare_password_hash(entered_password, hashed_password):
     password_bytes = entered_password.encode('utf-8')
-    return bcrypt.checkpw(password_bytes, hashed_password)
+    return bcrypt.checkpw(password_bytes, hashed_password.encode('utf-8'))
 
 # Returns boolean - if password is valid or not:
 # 7+ chars, 1 special symbol (!@£$%)

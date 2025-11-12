@@ -29,12 +29,12 @@ def token_required(f):
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
-            connection = get_flask_database_connection()
+            connection = get_flask_database_connection(app)
             repo = UserRepository(connection)
 
-            user = repo.find(data.user_id)
+            user = repo.find(data['user_id'])
             
-        except:
+        except Exception as e:
             return redirect(url_for('serve_login'))
 
         return f(user, *args, **kwargs)
@@ -57,8 +57,10 @@ def serve_login():
 @app.route('/signup', methods=['GET'])
 def serve_signup():
     return render_template('signup.html')
+
 @app.route('/spaces', methods=['GET'])
-def get_space():
+@token_required
+def get_space(user):
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
     spaces = space_repo.all()
@@ -107,19 +109,22 @@ def attempt_login():
     repository = UserRepository(connection)
 
     email = request.form['email']
-    password = request.form['password']
+    password = request.form['password'].strip(" ")
 
-    if repository.find_by_email(email) == None:
+    if not isinstance(repository.find_by_email(email), User):
+        print("email wrong?")
         return render_template('login.html', error = "One or more of your credentials was incorrect!")
     
     user = repository.find_by_email(email)
     password_hash = user.password_hash
     if compare_password_hash(password, password_hash) != True:
+        print("password wrong:", password)
         return render_template('login.html', error = "One or more of your credentials was incorrect!")
     
     #password is right and email is right
+    print("Success")
     token = jwt.encode({'user_id': user.id, 'exp': datetime.now(timezone.utc) + timedelta(hours=1)}, app.config['SECRET_KEY'], algorithm="HS256")
-    response = make_response(redirect(url_for("get_space")))
+    response = make_response(redirect(url_for("get_index")))
     response.set_cookie('jwt_token', token)
 
     return response
@@ -137,7 +142,8 @@ def debug_db_name():
     print("Connected to database:", conn._database_name())
     
 @app.route('/index', methods=['GET'])
-def get_index():
+@token_required
+def get_index(user):
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
     spaces = space_repo.all()
