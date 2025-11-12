@@ -75,3 +75,24 @@ def test_post_space_availability(db_connection, web_client):
         "Availability (3, 2025-11-05, 2025-11-25, 2)",
         "Availability (8, 2025-05-27, 2025-05-29, 2)"
     ])
+
+
+def test_book_button_navigates_to_availability(page, test_web_address, db_connection):
+    # Arrange
+    db_connection.seed("seeds/makersbnb.sql")
+
+    # Go to spaces list and open first space
+    page.goto(f"http://{test_web_address}/spaces")
+    first_card = page.locator('.space-card-link').first
+    first_card.click()
+
+    # Assert the Book button is present on the detail page
+    book_button = page.locator('a.view-button', has_text="Book").first
+    expect(book_button).to_be_visible()
+
+    # Click the Book button and verify navigation to availability endpoint
+    book_button.click()
+
+    expect(page).to_have_url(re.compile(rf"^http://{re.escape(test_web_address)}/spaces/1/availability\??$"))
+    # The availability endpoint returns plain text with availability entries
+    expect(page.locator('body')).to_contain_text("Availability (1, 2025-11-01, 2025-11-15, 1)")
