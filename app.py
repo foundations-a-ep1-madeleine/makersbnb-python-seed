@@ -129,6 +129,12 @@ def attempt_login():
 
     return response
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    response = make_response(redirect(url_for('serve_login')))
+    response.set_cookie('jwt_token', '')
+
+    return response
 
 # == Your Routes Here ==
 
