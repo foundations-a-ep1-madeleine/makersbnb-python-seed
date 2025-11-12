@@ -21,7 +21,7 @@ app.config['SECRET_KEY'] = "wow_so_secret"
 # Returns a salted, hashed password
 def hash_password(password):
     password_bytes = password.encode("utf-8")
-    salt = bcrypt.gensalt()
+    salt = bcrypt.gensalt(12)
     return bcrypt.hashpw(password_bytes, salt)
 
 # Takes in a plain text password and a hashed password and returns a boolean
@@ -29,6 +29,19 @@ def hash_password(password):
 def compare_password_hash(entered_password, hashed_password):
     password_bytes = entered_password.encode('utf-8')
     return bcrypt.checkpw(password_bytes, hashed_password)
+
+# Returns boolean - if password is valid or not:
+# 7+ chars, 1 special symbol (!@£$%)
+def valid_password(password):
+    special_chars = ['!', '@', "£", "$", "%"]
+    if len(password) < 7:
+        return False
+    else:
+        has_special = False
+        for char in password:
+            if char in special_chars:
+                has_special == True
+        return has_special
 
 def token_required(f):
     @wraps(f)
@@ -74,6 +87,27 @@ def get_space_by_user_id(id):
         repository = SpaceRepository(connection)
         space = repository.find(id)
         return render_template('single_space_id.html', space=space)
+
+@app.route('/signup', methods=['POST'])
+def create_user():
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+
+    if repository.find_by_email(email) != None:
+        # account already exists
+        return render_template('/signup'), 202
+
+    #TODO - password validation
+    hashed_password = hash_password(password)
+
+    repository.create(User(None, name, email, hashed_password.decode('utf-8')))
+
+    return "Added user", 201
+
 
 # == Your Routes Here ==
 
