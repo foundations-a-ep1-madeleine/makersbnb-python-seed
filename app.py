@@ -1,6 +1,7 @@
 import os
 import jwt
 import bcrypt
+from lib.authentication_utility import valid_password, hash_password
 from functools import wraps
 from flask import Flask, request, render_template, jsonify
 from lib.database_connection import get_flask_database_connection
@@ -16,33 +17,7 @@ from lib.date_serialization import string_to_date
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "wow_so_secret"
 
-# User Authentication #
-
-# Returns a salted, hashed password
-def hash_password(password):
-    password_bytes = password.encode("utf-8")
-    salt = bcrypt.gensalt(12)
-    return bcrypt.hashpw(password_bytes, salt)
-
-# Takes in a plain text password and a hashed password and returns a boolean
-# depending on if they are the same
-def compare_password_hash(entered_password, hashed_password):
-    password_bytes = entered_password.encode('utf-8')
-    return bcrypt.checkpw(password_bytes, hashed_password)
-
-# Returns boolean - if password is valid or not:
-# 7+ chars, 1 special symbol (!@£$%)
-def valid_password(password):
-    special_chars = ['!', '@', "£", "$", "%"]
-    if len(password) < 7:
-        return False
-    else:
-        has_special = False
-        for char in password:
-            if char in special_chars:
-                has_special == True
-        return has_special
-
+#== User authentication ==#
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -65,7 +40,22 @@ def token_required(f):
 
     return decorated
 
-# Routes #
+#== Routes ==#
+@app.route('/login', methods=['GET'])
+def serve_login():
+    return render_template('login.html')
+
+# @app.route('/login', methods=['POST'])
+# def user_login():
+#     connection = get_flask_database_connection(app)
+#     user_repo = UserRepository(connection)
+    
+#     user_email = request.form['email']
+#     user_password = request.form['password']
+
+@app.route('/signup', methods=['GET'])
+def serve_signup():
+    return render_template('signup.html')
 @app.route('/spaces', methods=['GET'])
 def get_space():
     connection = get_flask_database_connection(app)
@@ -102,6 +92,8 @@ def create_user():
         return render_template('/signup'), 202
 
     #TODO - password validation
+    if not valid_password(password):
+        return render_template('/signup'), 202
     hashed_password = hash_password(password)
 
     repository.create(User(None, name, email, hashed_password.decode('utf-8')))
