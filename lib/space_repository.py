@@ -9,7 +9,7 @@ class SpaceRepository:
         rows = self._connection.execute('SELECT * from spaces')
         spaces = []
         for row in rows:
-            item = Space(row["id"], row["name"], row["description"], row["price"], row["user_id"])
+            item = Space(row["id"], row["name"], row["description"], row["price"], row["user_id"], row["image_url"])
             spaces.append(item)
         return spaces
 
@@ -17,7 +17,7 @@ class SpaceRepository:
         rows = self._connection.execute(
             'SELECT * from spaces WHERE id = %s', [space_id])
         row = rows[0]
-        return Space(row["id"], row["name"], row["description"], row["price"], row["user_id"])
+        return Space(row["id"], row["name"], row["description"], row["price"], row["user_id"], row["image_url"])
     
     def create(self, space):
         self._connection.execute('INSERT INTO spaces (name, description, price, user_id) VALUES (%s, %s, %s, %s)', [
