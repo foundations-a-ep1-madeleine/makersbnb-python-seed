@@ -2,6 +2,9 @@ from playwright.sync_api import Page, expect
 from datetime import date
 import json
 
+from lib.user_repository import UserRepository # for signup testing
+import bcrypt #for signup hash checking
+
 def test_get_spaces(page, test_web_address, db_connection): 
     db_connection.seed("seeds/makersbnb.sql")
    
@@ -94,3 +97,37 @@ def test_post_space_availability(db_connection, web_client):
     json_string = response.data.decode("utf-8")
     actual_data = json.loads(json_string)
     assert actual_data == expected_json
+
+def test_signup_backend_correct(db_connection, web_client):
+    db_connection.seed("seeds/makersbnb.sql")
+
+    response = web_client.post("/signup", data={
+        'name': "John Smith",
+        'email': "johns@xyz123.com",
+        "password": "reallygoodpassword123!",
+    })
+
+    assert response.status_code == 201
+
+    repo = UserRepository(db_connection)
+    user = repo.find(7)
+
+    assert user.name == "John Smith" and user.email == "johns@xyz123.com"
+    assert bcrypt.checkpw("reallygoodpassword123!".encode('utf-8'), user.password_hash.encode("utf-8")) == True
+
+def test_signup_backend_incorrect(db_connection, web_client):
+    db_connection.seed("seeds/makersbnb.sql")
+
+    response = web_client.post("/signup", data={
+        'name': "John Smith",
+        'email': "johns@xyz123.com",
+        "password": "reallygoodpassword123!",
+    })
+
+    assert response.status_code == 201
+
+    repo = UserRepository(db_connection)
+    user = repo.find(7)
+
+    assert user.name == "John Smith" and user.email == "johns@xyz123.com"
+    assert bcrypt.checkpw("nottheactualpasswordwhat".encode('utf-8'), user.password_hash.encode("utf-8")) == False
