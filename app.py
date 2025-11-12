@@ -129,12 +129,15 @@ def create_user():
 # == Your Routes Here ==
 
 # GET /index
-# Returns the homepage
+# Returns the homepage with all spaces
 # Try it:
 #   ; open http://localhost:5001/index
 @app.route('/index', methods=['GET'])
 def get_index():
-    return render_template('index.html')
+    connection = get_flask_database_connection(app)
+    space_repo = SpaceRepository(connection)
+    spaces = space_repo.all()
+    return render_template('index.html', spaces=spaces)
 
 @app.route('/spaces/<int:id>/availability', methods=['GET'])
 def get_space_availability(id):

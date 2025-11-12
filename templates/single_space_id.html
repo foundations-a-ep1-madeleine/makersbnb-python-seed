@@ -1,40 +1,62 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styles/style.css" >
+    <title>{{space.name}} - MakersBnB</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <title>Makersbnb</title>
-</head>
-<body>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/style.css">
+  </head>
+  <body>
     <nav class="header">
-        <ul>
-            <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="airbnb logo"><p>makersbnb</p></li>
-            <li class="links">
-                <ul>
-                    <li><a href="">Link 1</a></li>
-                    <p>|</p>
-                    <li><a href="">Link 2</a></li>
-                </ul>
-            </li>
-        </ul>
+      <ul>
+        <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></li>
+        <li class="links">
+          <ul>
+            <li><a href="/sign-up">Sign Up</a></li>
+            <p>|</p>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </li>
+      </ul>
     </nav>
-    <!-- Content here -->
-    <div class="content">
-      <h1>{{space.name}}</h1>
-    <p>
-      Description: {{space.description}}
-      Price: {{space.price}}
-      User_id: {{space.user_id}}
-    </p>
+
+    <div class="space-detail-container">
+      <div class="space-detail-header">
+        <h1>Space Details</h1>
+      </div>
+      
+      <div class="space-card space-card-large">
+        <div class="space-image">
+          <img 
+            src="{{ space.image_url or 'https://via.placeholder.com/800x600/667eea/ffffff?text=' + (space.name | urlencode) }}" 
+            alt="{{space.name}}"
+            onerror="this.onerror=null; this.src='https://via.placeholder.com/800x600/667eea/ffffff?text={{space.name | urlencode}}'; this.classList.add('placeholder-img');">
+        </div>
+        
+        <div class="space-card-content">
+          <h2 class="space-name">{{space.name}}</h2>
+          <p class="space-description">{{space.description}}</p>
+          
+          <div class="space-footer">
+            <span class="space-price">£{{space.price}}/night</span>
+            <a href="/spaces/{{space.id}}/availability" class="view-button" aria-label="Book this space">Book</a>
+          </div>
+          
+          <div style="margin-top: 20px;">
+            <div class="space-info-item">
+              <span class="info-label">Host ID:</span>
+              <span class="info-value">{{space.user_id}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <a href="/index" class="back-button">← Back to all spaces</a>
     </div>
 
-    <!-- Content here -->
     <footer class="footer">
         <p>©2025 Makers Academy</p>
         <p>Created by:</p>
@@ -45,5 +67,5 @@
         <p><a href="https://github.com/margot-bourne">Margot Bourne</a></p>
         <p><a href="https://github.com/s111ew">Sam Llewellyn</a></p>
     </footer>
-</body>
+  </body>
 </html>

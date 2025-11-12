@@ -1,15 +1,74 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>MakersBnB</title>
-
-        <!--
-            Head to https://github.com/makersacademy/web-applications-in-python/blob/main/pills/loading_css_or_static_files.md
-            If you're wondering how the CSS file below is being loaded.
-        -->
-        <link rel="stylesheet" href="/static/style.css" >
+        <title>MakersBnB - Find Your Perfect Space</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/static/styles/style.css" >
     </head>
     <body>
-        <p>This is the homepage.</p>
+        <nav class="header">
+            <ul>
+                <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></li>
+                <li class="links">
+                    <ul>
+                        <li><a href="/sign-up">Sign Up</a></li>
+                        <p>|</p>
+                        <li><a href="/about">About</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="homepage-container">
+            <header class="homepage-header">
+                <div class="geometric-animation geometric-animation-right">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+                <div class="geometric-animation geometric-animation-left">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+                <h1>Find Your Perfect Space</h1>
+                <p class="subtitle">Discover unique places to stay, from cozy apartments to countryside retreats</p>
+            </header>
+
+            <div class="spaces-grid">
+                {% for space in spaces %}
+                <a href="/spaces/{{ space.id }}" class="space-card-link">
+                    <div class="space-card">
+                        <div class="space-image">
+                            <img src="{{ space.image_url or 'https://via.placeholder.com/400x300/667eea/ffffff?text=' + (space.name | urlencode) }}" 
+                                 alt="{{ space.name }}"
+                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/667eea/ffffff?text={{ space.name | urlencode }}'; this.classList.add('placeholder-img');">
+                        </div>
+                        <div class="space-card-content">
+                            <h3 class="space-name">{{ space.name }}</h3>
+                            <p class="space-description">{{ space.description }}</p>
+                                          <div class="space-footer">
+                <span class="space-price">£{{ space.price }}/night</span>
+                <span class="view-button">Details</span>
+              </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>©2025 Makers Academy</p>
+            <p>Created by:</p>
+            <p><a href="https://github.com/isaac-madgwick">Isaac Madgewick</a></p>
+            <p><a href="https://github.com/AnyaVeselova">Anna Veselova</a></p>
+            <p><a href="https://github.com/Supersabjey">Sabia Jeyaratnam</a></p>
+            <p><a href="https://github.com/Awynnm">Nazarii</a></p>
+            <p><a href="https://github.com/margot-bourne">Margot Bourne</a></p>
+            <p><a href="https://github.com/s111ew">Sam Llewellyn</a></p>
+        </footer>
     </body>
 </html>

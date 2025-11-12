@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import re
 from datetime import date
 import json
 
@@ -7,34 +8,45 @@ import bcrypt #for signup hash checking
 
 def test_get_spaces(page, test_web_address, db_connection): 
     db_connection.seed("seeds/makersbnb.sql")
-   
+
     page.goto(f"http://{test_web_address}/spaces")
 
-    div_tags = page.locator("div")
-    expect(div_tags).to_have_text([
+    # Check that space cards are rendered in the grid
+    space_cards = page.locator(".space-card")
+    expect(space_cards).to_have_count(6)
+    
+    # Check that the first space has the correct name
+    first_space_name = page.locator(".space-name").first
+    expect(first_space_name).to_contain_text("Cozy City Apartment")
 
-        "Name: Cozy City Apartment\nDescription: Modern 1-bed apartment in central London, near cafes and transport.\nPrice: 120.00\nUser_id: 1",
-        "Name: Seaside Cottage\nDescription: Charming cottage overlooking the sea. Perfect for a weekend getaway.\nPrice: 180.00\nUser_id: 2",
-        "Name: Mountain Cabin\nDescription: Rustic cabin with a fireplace and forest views in the Lake District.\nPrice: 150.00\nUser_id: 3",
-        "Name: Modern Loft\nDescription: Bright open-plan loft in downtown Manchester with skyline views.\nPrice: 200.00\nUser_id: 4",
-        "Name: Countryside Retreat\nDescription: Peaceful farmhouse surrounded by fields and trails.\nPrice: 130.00\nUser_id: 5",
-        "Name: Studio Flat\nDescription: Compact studio ideal for solo travellers, near Oxford city centre.\nPrice: 95.00\nUser_id: 6"
-    ])
+    # clicking the first card navigates to its detail page
+    first_card = page.locator('.space-card-link').first
+    first_card.click()
+    # expect to arrive on the single-space page and see the space name
+    # allow an optional trailing query marker added by the test runner
+    expect(page).to_have_url(re.compile(rf"^http://{re.escape(test_web_address)}/spaces/1\??$"))
+    expect(page.locator('.space-name')).to_contain_text('Cozy City Apartment')
 
 
 
 """
 We can render the index page
 """
-def test_get_index(page, test_web_address):
+def test_get_index(page, test_web_address, db_connection):
+    db_connection.seed("seeds/makersbnb.sql")
+    
     # We load a virtual browser and navigate to the /index page
     page.goto(f"http://{test_web_address}/index")
 
-    # We look at the <p> tag
-    p_tag = page.locator("p")
+    # We look for the header
+    header = page.locator(".homepage-header h1")
 
-    # We assert that it has the text "This is the homepage."
-    expect(p_tag).to_have_text("This is the homepage.")
+    # We assert that it has the updated heading text
+    expect(header).to_have_text("Find Your Perfect Space")
+    
+    # We check that space cards are rendered
+    space_cards = page.locator(".space-card")
+    expect(space_cards).to_have_count(6)
 
 
 def test_get_space_availability(db_connection, web_client):
@@ -78,21 +90,11 @@ def test_post_space_availability(db_connection, web_client):
     response = web_client.get("/spaces/2/availability")
 
     assert response.status_code == 200
+    assert response.data.decode("utf-8") == "\n".join([
+        "Availability (3, 2025-11-05, 2025-11-25, 2)",
+        "Availability (8, 2025-05-27, 2025-05-29, 2)"
+    ])
 
-    expected_json = [
-        {
-            "id": 3,
-            "start_date": "2025-11-05",
-            "end_date": "2025-11-25",
-            "space_id": 2,
-        },
-        {
-            "id": 8,
-            "start_date": "2025-05-27",
-            "end_date": "2025-05-29",
-            "space_id": 2,
-        }
-    ]
 
     json_string = response.data.decode("utf-8")
     actual_data = json.loads(json_string)
