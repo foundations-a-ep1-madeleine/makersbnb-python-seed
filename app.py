@@ -89,11 +89,11 @@ def create_user():
 
     if repository.find_by_email(email) != None:
         # account already exists
-        return render_template('/signup'), 202
+        return render_template('signup.html'), 202
 
     #TODO - password validation
     if not valid_password(password):
-        return render_template('/signup'), 202
+        return render_template('signup.html'), 202
     hashed_password = hash_password(password)
 
     repository.create(User(None, name, email, hashed_password.decode('utf-8')))
