@@ -17,7 +17,7 @@ app = Flask(__name__)
 def get_space():
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
-    spaces = space_repo.all()
+    spaces = space_repo.all()???
     return render_template('spaces.html', spaces=spaces)
 
 @app.route('/spaces', methods=['POST'])
