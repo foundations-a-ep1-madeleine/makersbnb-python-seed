@@ -29,15 +29,12 @@
             <h2>Add Space</h2>
             <p>Tell us about your space</p>
         </div>
-        <form action="/submit-login" method="POST" class="space-form">
+        <form action="/submit-space" method="POST" class="space-form">
             <h2 class="space-name">Space</h2>
-            <div class="title-container input-container">
-                <input type="title" id="title" name="Title" placeholder=" " required>
-                <label for="title">Title</label>
-            </div>
-             <div class="location-container input-container">
-                <input type="location" id="location" name="location" placeholder=" " required>
-                <label for="location">Location</label>
+            <div class="name-container input-container">
+                <input type="name" id="name" name="Name" placeholder=" " required>
+                <label for="name">Name</label>
+    
             </div>
              <div class="description-container input-container">
                 <input type="description" id="description" name="description" placeholder=" " required>
@@ -46,6 +43,10 @@
             <div class="price-container input-container">
                 <input type="price" id="price" name="price" placeholder=" " required>
                 <label for="price">Price</label>
+              </div>
+            <div class="user_id-container input-container">
+                <input type="user_id" id="user_id" name="user_id" placeholder=" " required>
+                <label for="user_id">User_id</label>
             </div>
             <input type="submit" value="Submit Space">
         </form>
