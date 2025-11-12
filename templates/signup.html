@@ -16,7 +16,7 @@
             <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="airbnb logo"><p>makersbnb</p></li>
             <li class="links">
                 <ul>
-                    <li><a href="/sign-up">Sign Up</a></li>
+                    <li><a href="/login">Log in</a></li>
                     <p>|</p>
                     <li><a href="/about">About</a></li>
                 </ul>
@@ -26,11 +26,15 @@
     <!-- Content here -->
     <div class="content">
         <div class="copy">
-            <h2>Welcome Home</h2>
-            <p>Find your perfect escape. Enter your credentials below to pick up where you left off.</p>
+            <h2>Welcome to the Neighborhood</h2>
+            <p>Become part of a global community of travelers and hosts. Sign up to begin your adventure.</p>
         </div>
-        <form action="/submit-login" method="POST" class="login-form">
-            <h2 class="login-title">Login</h2>
+        <form action="/submit-signup" method="POST" class="signup-form">
+            <h2 class="signup-title">Sign-up</h2>
+            <div class="name-container input-container">
+                <input type="text" id="name" name="name" placeholder=" " required>
+                <label for="name">Full Name</label>
+            </div>
             <div class="email-container input-container">
                 <input type="email" id="email" name="email" placeholder=" " required>
                 <label for="email">Email Address</label>
@@ -39,7 +43,7 @@
                 <input type="password" id="password" name="password" placeholder=" " required minlength="8">
                 <label for="password">Password</label>
             </div>
-            <input type="submit" value="Log In">
+            <input type="submit" value="Sign-up">
         </form>
     </div>
     <!-- Content here -->
