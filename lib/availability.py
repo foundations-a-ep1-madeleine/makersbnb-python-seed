@@ -15,6 +15,18 @@ class Availability:
             self.end_date = end_date
 
         self.space_id = space_id 
+        self.id = id 
+        self.start_date = start_date
+        self.end_date = end_date
+        self.space_id = space_id
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "start_date": str(self.start_date),
+            "end_date": str(self.end_date),
+            "space_id": self.space_id
+        }
 
     def __eq__(self, other):
         return self.dict == other.dict
