@@ -3,7 +3,7 @@ from lib.user import User
 from datetime import datetime
 
 def test_get_all_users(db_connection):
-    db_connection.seed("seeds/makersbnb_seed.sql")
+    db_connection.seed("seeds/makersbnb.sql")
     repository = UserRepository(db_connection)
     users = repository.all()
 
@@ -20,14 +20,14 @@ def test_get_all_users(db_connection):
     assert users[5].password_hash == 'hash_for_margot'
 
 def test_find_user_by_id(db_connection):
-    db_connection.seed("seeds/makersbnb_seed.sql")
+    db_connection.seed("seeds/makersbnb.sql")
     repository = UserRepository(db_connection)
     user = repository.find(2) 
     assert user.name == 'Sabia Jeyaratnam'
     assert user.email == 'sabiaj@example.com'
 
 def test_create_user(db_connection):
-    db_connection.seed("seeds/makersbnb_seed.sql")
+    db_connection.seed("seeds/makersbnb.sql")
     repository = UserRepository(db_connection)
 
     new_user = User(None, "Test User", "test@example.com", "test_hash")
@@ -39,7 +39,7 @@ def test_create_user(db_connection):
     assert all_users[-1].name == "Test User"
 
 def test_delete_user(db_connection):
-    db_connection.seed("seeds/makersbnb_seed.sql")
+    db_connection.seed("seeds/makersbnb.sql")
     repository = UserRepository(db_connection)
     repository.delete(1) 
 
