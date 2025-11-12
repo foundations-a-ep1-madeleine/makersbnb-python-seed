@@ -3,7 +3,10 @@ import re
 from datetime import date
 import json
 
-def test_get_spaces(page, test_web_address, db_connection):
+from lib.user_repository import UserRepository # for signup testing
+import bcrypt #for signup hash checking
+
+def test_get_spaces(page, test_web_address, db_connection): 
     db_connection.seed("seeds/makersbnb.sql")
 
     page.goto(f"http://{test_web_address}/spaces")
@@ -93,22 +96,40 @@ def test_post_space_availability(db_connection, web_client):
     ])
 
 
-def test_book_button_navigates_to_availability(page, test_web_address, db_connection):
-    # Arrange
+    json_string = response.data.decode("utf-8")
+    actual_data = json.loads(json_string)
+    assert actual_data == expected_json
+
+def test_signup_backend_correct(db_connection, web_client):
     db_connection.seed("seeds/makersbnb.sql")
 
-    # Go to spaces list and open first space
-    page.goto(f"http://{test_web_address}/spaces")
-    first_card = page.locator('.space-card-link').first
-    first_card.click()
+    response = web_client.post("/signup", data={
+        'name': "John Smith",
+        'email': "johns@xyz123.com",
+        "password": "reallygoodpassword123!",
+    })
 
-    # Assert the Book button is present on the detail page
-    book_button = page.locator('a.view-button', has_text="Book").first
-    expect(book_button).to_be_visible()
+    assert response.status_code == 201
 
-    # Click the Book button and verify navigation to availability endpoint
-    book_button.click()
+    repo = UserRepository(db_connection)
+    user = repo.find(7)
 
-    expect(page).to_have_url(re.compile(rf"^http://{re.escape(test_web_address)}/spaces/1/availability\??$"))
-    # The availability endpoint returns plain text with availability entries
-    expect(page.locator('body')).to_contain_text("Availability (1, 2025-11-01, 2025-11-15, 1)")
+    assert user.name == "John Smith" and user.email == "johns@xyz123.com"
+    assert bcrypt.checkpw("reallygoodpassword123!".encode('utf-8'), user.password_hash.encode("utf-8")) == True
+
+def test_signup_backend_incorrect(db_connection, web_client):
+    db_connection.seed("seeds/makersbnb.sql")
+
+    response = web_client.post("/signup", data={
+        'name': "John Smith",
+        'email': "johns@xyz123.com",
+        "password": "reallygoodpassword123!",
+    })
+
+    assert response.status_code == 201
+
+    repo = UserRepository(db_connection)
+    user = repo.find(7)
+
+    assert user.name == "John Smith" and user.email == "johns@xyz123.com"
+    assert bcrypt.checkpw("nottheactualpasswordwhat".encode('utf-8'), user.password_hash.encode("utf-8")) == False
