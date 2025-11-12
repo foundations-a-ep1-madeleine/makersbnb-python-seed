@@ -15,8 +15,8 @@ def test_space_constructs():
 We can format spaces to strings nicely
 """
 def test_spaces_format_nicely():
-    space = Space(1, "Test Name", "Test Description", "Test Price", "Test User ID")
-    assert str(space) == "Space(1, Test Name, Test Description, Test Price, Test User ID)"
+    space = Space(1, "Test Name", "Test Description", "Test Price", "Test User ID", "Test Image URL")
+    assert str(space) == "Space(1, Test Name, Test Description, Test Price, Test User ID, Test Image URL)"
     
 
 """

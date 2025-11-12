@@ -128,13 +128,20 @@ def attempt_login():
 # == Your Routes Here ==
 
 # GET /index
-# Returns the homepage
+# Returns the homepage with all spaces
 # Try it:
 #   ; open http://localhost:5001/index
+@app.before_request
+def debug_db_name():
+    conn = get_flask_database_connection(app)
+    print("Connected to database:", conn._database_name())
+    
 @app.route('/index', methods=['GET'])
-@token_required
-def get_index(user):
-    return render_template('index.html', name=user.name)
+def get_index():
+    connection = get_flask_database_connection(app)
+    space_repo = SpaceRepository(connection)
+    spaces = space_repo.all()
+    return render_template('index.html', spaces=spaces)
 
 @app.route('/spaces/<int:id>/availability', methods=['GET'])
 def get_space_availability(id):
