@@ -25,7 +25,7 @@ def token_required(f):
         token = request.cookies.get('jwt_token')
 
         if not token:
-            return jsonify({'message': 'Token missing'}), 401
+            return redirect(url_for('serve_login'))
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
@@ -35,7 +35,7 @@ def token_required(f):
             user = repo.find(data.user_id)
             
         except:
-            return jsonify({'message': 'Token invalid'}), 401
+            return redirect(url_for('serve_login'))
 
         return f(user, *args, **kwargs)
 
@@ -132,8 +132,9 @@ def attempt_login():
 # Try it:
 #   ; open http://localhost:5001/index
 @app.route('/index', methods=['GET'])
-def get_index():
-    return render_template('index.html')
+@token_required
+def get_index(user):
+    return render_template('index.html', name=user.name)
 
 @app.route('/spaces/<int:id>/availability', methods=['GET'])
 def get_space_availability(id):
