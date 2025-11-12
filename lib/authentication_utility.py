@@ -24,5 +24,5 @@ def valid_password(password):
         has_special = False
         for char in password:
             if char in special_chars:
-                has_special == True
+                has_special = True
         return has_special

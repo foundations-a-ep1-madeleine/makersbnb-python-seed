@@ -1,9 +1,10 @@
 import os
 import jwt
 import bcrypt
-from lib.authentication_utility import valid_password, hash_password
+from lib.authentication_utility import valid_password, hash_password, compare_password_hash
+from datetime import datetime, timezone, timedelta
 from functools import wraps
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, make_response, url_for, redirect
 from lib.database_connection import get_flask_database_connection
 from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
@@ -89,16 +90,39 @@ def create_user():
 
     if repository.find_by_email(email) != None:
         # account already exists
-        return render_template('signup.html'), 202
+        return render_template('signup.html', error = "Please enter an email that isn't already in use!"), 202
 
     #TODO - password validation
     if not valid_password(password):
-        return render_template('signup.html'), 202
+        return render_template('signup.html', error = "Please enter a valid password. > 7 characters, including 1 or more !£$%"), 202
     hashed_password = hash_password(password)
 
     repository.create(User(None, name, email, hashed_password.decode('utf-8')))
 
-    return "Added user", 201
+    return render_template('login.html'), 201
+
+@app.route('/login', methods=['POST'])
+def attempt_login():
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+
+    email = request.form['email']
+    password = request.form['password']
+
+    if repository.find_by_email(email) == None:
+        return render_template('login.html', error = "One or more of your credentials was incorrect!")
+    
+    user = repository.find_by_email(email)
+    password_hash = user.password_hash
+    if compare_password_hash(password, password_hash) != True:
+        return render_template('login.html', error = "One or more of your credentials was incorrect!")
+    
+    #password is right and email is right
+    token = jwt.encode({'user_id': user.id, 'exp': datetime.now(timezone.utc) + timedelta(hours=1)}, app.config['SECRET_KEY'], algorithm="HS256")
+    response = make_response(redirect(url_for("get_space")))
+    response.set_cookie('jwt_token', token)
+
+    return response
 
 
 # == Your Routes Here ==
