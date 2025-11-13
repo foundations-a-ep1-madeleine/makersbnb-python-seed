@@ -25,6 +25,7 @@ def token_required(f):
         token = request.cookies.get('jwt_token')
 
         if not token:
+            return f(None, *args, **kwargs)
             return redirect(url_for('serve_login'))
 
         try:
@@ -35,6 +36,7 @@ def token_required(f):
             user = repo.find(data['user_id'])
             
         except Exception as e:
+            return f(None, *args, **kwargs)
             return redirect(url_for('serve_login'))
 
         return f(user, *args, **kwargs)

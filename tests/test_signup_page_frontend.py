@@ -52,7 +52,7 @@ def test_can_fill_and_submit_form(page, test_web_address):
 
     test_name = "Jeff Smith"
     test_email = "test@example.com"
-    test_password = "securepassword123"
+    test_password = "securepassword123!"
 
     page.get_by_label("Full Name").fill(test_name)
     page.get_by_label("Email Address").fill(test_email)
@@ -63,7 +63,7 @@ def test_can_fill_and_submit_form(page, test_web_address):
     expect(page.get_by_label("Password")).to_have_value(test_password)
 
     login_form = page.locator("form.signup-form")
-    expect(login_form).to_have_attribute("action", "/submit-signup")
+    expect(login_form).to_have_attribute("action", "/signup")
     expect(login_form).to_have_attribute("method", "POST")
 
 
