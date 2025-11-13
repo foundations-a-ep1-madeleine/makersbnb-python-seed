@@ -13,6 +13,8 @@ from lib.user import User
 from lib.user_repository import UserRepository
 from lib.space import Space
 from lib.date_serialization import string_to_date
+from lib.booking_repository import BookingRepository
+from lib.booking import Booking
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -26,7 +28,6 @@ def token_required(f):
 
         if not token:
             return f(None, *args, **kwargs)
-            return redirect(url_for('serve_login'))
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
@@ -37,7 +38,6 @@ def token_required(f):
             
         except Exception as e:
             return f(None, *args, **kwargs)
-            return redirect(url_for('serve_login'))
 
         return f(user, *args, **kwargs)
 
@@ -45,7 +45,10 @@ def token_required(f):
 
 #== Routes ==#
 @app.route('/login', methods=['GET'])
-def serve_login():
+@token_required
+def serve_login(user):
+    if isinstance(user, User):
+        return redirect(url_for('get_space'))
     return render_template('login.html')
 
 # @app.route('/login', methods=['POST'])
@@ -63,14 +66,10 @@ def serve_signup():
 @app.route('/spaces', methods=['GET'])
 @token_required
 def get_space(user):
-    if not isinstance(user, User):
-        print("User is not logged in do whatever here")
-    else:
-        print(user.id, user.name, user.email, user.password_hash)
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
     spaces = space_repo.all()
-    return render_template('spaces.html', spaces=spaces)
+    return render_template('spaces.html', spaces=spaces, logged_in=isinstance(user, User))
 
 @app.route('/spaces', methods=['POST'])
 def create_space():
@@ -80,12 +79,20 @@ def create_space():
     space = repository.create(space)
     return "Space added successfully"
 
-@app.route('/spaces/<id>', methods=['GET'])
-def get_space_by_user_id(id):
-        connection = get_flask_database_connection(app)
-        repository = SpaceRepository(connection)
-        space = repository.find(id)
-        return render_template('single_space_id.html', space=space)
+@app.route('/spaces/<int:id>', methods=['GET'])
+@token_required
+def get_space_by_user_id(user, id):
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    space = repository.find(id)
+    # route-level lookup: fetch host name to display instead of numeric id
+    user_repo = UserRepository(connection)
+    host = None
+    if space and getattr(space, 'user_id', None) is not None:
+        host = user_repo.find(space.user_id)
+    host_name = host.name if host else None
+
+    return render_template('single_space_id.html', space=space, host_name=host_name, logged_in=isinstance(user, User))
 
 @app.route('/signup', methods=['POST'])
 def create_user():
@@ -135,7 +142,7 @@ def attempt_login():
 
     return response
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['POST', 'GET'])
 def logout():
     response = make_response(redirect(url_for('serve_login')))
     response.set_cookie('jwt_token', '')
@@ -154,7 +161,6 @@ def debug_db_name():
     print("Connected to database:", conn._database_name())
     
 @app.route('/index', methods=['GET'])
-
 @token_required
 def get_index(user):
     return redirect(url_for('get_space'))
@@ -182,6 +188,19 @@ def create_space_availability():
     repository = AvailabilityRepository(connection)
     repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
     return "Availability added"
+
+
+# this displays the bookings to the host  and the bookings that have been rented by the same user
+@app.route('/requests', methods=['GET'])
+@token_required
+def get_bookings(user):
+    if not isinstance(user, User):
+        return redirect(url_for('serve_login'))
+    connection = get_flask_database_connection(app)
+    booking_repo = BookingRepository(connection)
+    hosted_bookings = booking_repo.get_by_host(user.id)
+    rented_bookings = booking_repo.get_by_renter(user.id)
+    return render_template('requests.html', rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
 
 
 # These lines start the server if you run this file directly
