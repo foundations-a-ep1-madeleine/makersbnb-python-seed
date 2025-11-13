@@ -63,6 +63,10 @@ def serve_signup():
 @app.route('/spaces', methods=['GET'])
 @token_required
 def get_space(user):
+    if not isinstance(user, User):
+        print("User is not logged in do whatever here")
+    else:
+        print(user.id, user.name, user.email, user.password_hash)
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
     spaces = space_repo.all()
