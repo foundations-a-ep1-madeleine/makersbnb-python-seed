@@ -4,7 +4,7 @@ import bcrypt
 from lib.authentication_utility import valid_password, hash_password, compare_password_hash
 from datetime import datetime, timezone, timedelta
 from functools import wraps
-from flask import Flask, request, render_template, jsonify, url_for, redirect
+from flask import Flask, request, render_template, jsonify, url_for, redirect, make_response
 from lib.database_connection import get_flask_database_connection
 from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
@@ -28,7 +28,6 @@ def token_required(f):
 
         if not token:
             return f(None, *args, **kwargs)
-            return redirect(url_for('serve_login'))
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
@@ -39,7 +38,6 @@ def token_required(f):
             
         except Exception as e:
             return f(None, *args, **kwargs)
-            return redirect(url_for('serve_login'))
 
         return f(user, *args, **kwargs)
 
@@ -185,54 +183,19 @@ def create_space_availability():
     repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
     return "Availability added"
 
-@app.route('/requests', methods = ['GET'])
-def get_all_bookings():
-    connection = get_flask_database_connection(app)
-    repository = BookingRepository(connection)
-    bookings = repository.all()
-    return render_template('requests.html', bookings=bookings)
 
 # this displays the bookings to the host  and the bookings that have been rented by the same user
 @app.route('/requests', methods=['GET'])
 @token_required
 def get_bookings(user):
     if not isinstance(user, User):
-        print("User is not logged in do whatever here")
-    else:
-        print(user.id, user.name, user.email, user.password_hash)
+        return redirect(url_for('serve_login'))
     connection = get_flask_database_connection(app)
     booking_repo = BookingRepository(connection)
     hosted_bookings = booking_repo.get_by_host(user.id)
     rented_bookings = booking_repo.get_by_renter(user.id)
     return render_template('requests.html', rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
 
-# route to create bookings - need to change url name 
-# @app.route('/requests', methods=['POST'])
-# @token_required
-# def create_bookings(user):
-#     if not isinstance(user, User):
-#         print("User is not logged in do whatever here")
-#     else:
-#         print(user.id, user.name, user.email, user.password_hash)
-#     connection = get_flask_database_connection(app)
-#     booking_repo = BookingRepository(connection)
-#     new_booking = Booking(None, request.form['date'], request.form['confirmed'], request.form['space_id'], request.form['user_id'])
-#     new_booking = booking_repo.create(new_booking)
-#     return "Success"
-
-# # route to create bookings - need to change url name 
-# @app.route('/requests', methods=['POST'])
-# @token_required
-# def delete_bookings(user):
-#     if not isinstance(user, User):
-#         print("User is not logged in do whatever here")
-#     else:
-#         print(user.id, user.name, user.email, user.password_hash)
-#     connection = get_flask_database_connection(app)
-#     booking_repo = BookingRepository(connection)
-#     new_booking = Booking(None, request.form['date'], request.form['confirmed'], request.form['space_id'], request.form['user_id'])
-#     new_booking = booking_repo.create(new_booking)
-#     return "Success"
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
