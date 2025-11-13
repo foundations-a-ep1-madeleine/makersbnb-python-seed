@@ -35,6 +35,16 @@ body {
     position: relative;
 }
 
+.logo-link {
+    display: flex;
+    gap: 10px;
+}
+
+.logo-link {
+    color: black;
+    text-decoration: none;
+}
+
 /* Geometric Animation */
 .geometric-animation {
     position: absolute;
