@@ -4,7 +4,7 @@ import bcrypt
 from lib.authentication_utility import valid_password, hash_password, compare_password_hash
 from datetime import datetime, timezone, timedelta
 from functools import wraps
-from flask import Flask, request, render_template, jsonify, url_for, redirect
+from flask import Flask, request, render_template, jsonify, url_for, redirect, make_response
 from lib.database_connection import get_flask_database_connection
 from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
@@ -26,7 +26,6 @@ def token_required(f):
 
         if not token:
             return f(None, *args, **kwargs)
-            return redirect(url_for('serve_login'))
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
@@ -37,7 +36,6 @@ def token_required(f):
             
         except Exception as e:
             return f(None, *args, **kwargs)
-            return redirect(url_for('serve_login'))
 
         return f(user, *args, **kwargs)
 
@@ -45,7 +43,10 @@ def token_required(f):
 
 #== Routes ==#
 @app.route('/login', methods=['GET'])
-def serve_login():
+@token_required
+def serve_login(user):
+    if isinstance(user, User):
+        return redirect(url_for('get_space'))
     return render_template('login.html')
 
 # @app.route('/login', methods=['POST'])
@@ -63,14 +64,10 @@ def serve_signup():
 @app.route('/spaces', methods=['GET'])
 @token_required
 def get_space(user):
-    if not isinstance(user, User):
-        print("User is not logged in do whatever here")
-    else:
-        print(user.id, user.name, user.email, user.password_hash)
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
     spaces = space_repo.all()
-    return render_template('spaces.html', spaces=spaces)
+    return render_template('spaces.html', spaces=spaces, logged_in=isinstance(user, User))
 
 @app.route('/spaces', methods=['POST'])
 def create_space():
@@ -80,12 +77,13 @@ def create_space():
     space = repository.create(space)
     return "Space added successfully"
 
-@app.route('/spaces/<id>', methods=['GET'])
-def get_space_by_user_id(id):
-        connection = get_flask_database_connection(app)
-        repository = SpaceRepository(connection)
-        space = repository.find(id)
-        return render_template('single_space_id.html', space=space)
+@app.route('/spaces/<int:id>', methods=['GET'])
+@token_required
+def get_space_by_user_id(user, id):
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    space = repository.find(id)
+    return render_template('single_space_id.html', space=space, logged_in=isinstance(user, User))
 
 @app.route('/signup', methods=['POST'])
 def create_user():
@@ -135,7 +133,7 @@ def attempt_login():
 
     return response
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['POST', 'GET'])
 def logout():
     response = make_response(redirect(url_for('serve_login')))
     response.set_cookie('jwt_token', '')
@@ -154,7 +152,6 @@ def debug_db_name():
     print("Connected to database:", conn._database_name())
     
 @app.route('/index', methods=['GET'])
-
 @token_required
 def get_index(user):
     return redirect(url_for('get_space'))
