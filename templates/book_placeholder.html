@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Booking Preview - {{ space.name }}</title>
+    <link rel="stylesheet" href="/static/styles/style.css">
+  </head>
+  <body>
+    <nav class="header">
+      <ul>
+        <li class="logo"><a class="logo-link" href="/spaces"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></a></li>
+      </ul>
+    </nav>
+
+    <main style="max-width:700px;margin:40px auto;padding:20px;">
+      <h1>Booking preview for "{{ space.name }}"</h1>
+      <p>If this were the real booking endpoint, we'd validate and persist the following selected dates:</p>
+
+      {% if dates and dates|length > 0 %}
+        <ul>
+          {% for d in dates %}
+            <li>{{ d }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p><em>No dates selected.</em></p>
+      {% endif %}
+
+      <p style="margin-top:20px;"><a class="back-button" href="/spaces/{{ space.id }}">← Back to space</a></p>
+    </main>
+  </body>
+</html>

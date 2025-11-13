@@ -477,6 +477,96 @@ body {
     transform: translateX(-4px);
 }
 
+/* Calendar styles for single space page */
+.space-calendar-container {
+    margin-top: 28px;
+}
+.space-calendar-container h3 {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    color: #2d3748;
+}
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.calendar-nav-link {
+    padding: 6px 10px;
+    background: transparent;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.calendar-nav-link:hover {
+    background: #f4f4f4;
+}
+.calendar-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.calendar-table th,
+.calendar-table td {
+    padding: 8px 6px;
+    text-align: center;
+    border: 1px solid #f0f0f0;
+    vertical-align: middle;
+}
+.calendar-table td.other-month {
+    background: #fafafa;
+    color: #c4c4c4;
+}
+.calendar-table td.unavailable {
+    background: #f4f4f4;
+    color: #9aa0a6;
+}
+.calendar-table td.available {
+    background: #eafaf0;
+}
+.calendar-table td.available .avail-link {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: 6px 0;
+    color: #0a7a1a;
+    text-decoration: none;
+    font-weight: 600;
+}
+.calendar-table td.unavailable .day-label {
+    color: #9aa0a6;
+}
+
+/* checkbox-based selection styling */
+.calendar-table input[type="checkbox"] {
+    display: none;
+}
+.calendar-table label {
+    display: inline-block;
+    width: 100%;
+    padding: 6px 0;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.calendar-table input[type="checkbox"] + label {
+    color: inherit;
+}
+.calendar-table input[type="checkbox"]:checked + label {
+    background: #0a7a1a;
+    color: #fff;
+}
+.calendar-cell.available label:hover {
+    background: rgba(10,122,26,0.08);
+}
+
+
 /* Navigation Header */
 .header {
     background: #ffffff;

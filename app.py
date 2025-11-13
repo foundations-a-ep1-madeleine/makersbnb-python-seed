@@ -2,7 +2,8 @@ import os
 import jwt
 import bcrypt
 from lib.authentication_utility import valid_password, hash_password, compare_password_hash
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone, timedelta, date
+import calendar
 from functools import wraps
 from flask import Flask, request, render_template, jsonify, url_for, redirect, make_response
 from lib.database_connection import get_flask_database_connection
@@ -92,7 +93,90 @@ def get_space_by_user_id(user, id):
         host = user_repo.find(space.user_id)
     host_name = host.name if host else None
 
-    return render_template('single_space_id.html', space=space, host_name=host_name, logged_in=isinstance(user, User))
+    # Build available dates set from availability repository
+    availability_repo = AvailabilityRepository(connection)
+    availabilities = availability_repo.find_by_space_id(id)
+
+    # Expand availability ranges into individual ISO dates using stdlib
+    available_dates = set()
+    for period in availabilities:
+        start = period.start_date
+        end = period.end_date
+
+        if isinstance(start, str):
+            start = date.fromisoformat(start)
+        if isinstance(end, str):
+            end = date.fromisoformat(end)
+
+        d = start
+        while d <= end:
+            available_dates.add(d.isoformat())
+            d = d + timedelta(days=1)
+
+    # Determine month/year to show (allow ?year=YYYY&month=MM)
+    try:
+        month = int(request.args.get('month') or date.today().month)
+        year = int(request.args.get('year') or date.today().year)
+    except Exception:
+        month = date.today().month
+        year = date.today().year
+
+    # Build month grid (list of weeks, each week is list of day dicts)
+    def build_month_grid(year, month, available_iso_set):
+        cal = calendar.Calendar(firstweekday=6)  # Week starts on Sunday
+        weeks = []
+        for week in cal.monthdatescalendar(year, month):
+            week_cells = []
+            for d in week:
+                iso = d.isoformat()
+                in_month = (d.month == month)
+                available = iso in available_iso_set
+                week_cells.append({
+                    'date': d,
+                    'iso': iso,
+                    'in_month': in_month,
+                    'available': available,
+                    'day': d.day,
+                })
+            weeks.append(week_cells)
+        return weeks
+
+    calendar_weeks = build_month_grid(year, month, available_dates)
+
+    month_name = calendar.month_name[month]
+
+    # compute previous and next month/year for server-side navigation
+    if month == 1:
+        prev_month = 12
+        prev_year = year - 1
+    else:
+        prev_month = month - 1
+        prev_year = year
+
+    if month == 12:
+        next_month = 1
+        next_year = year + 1
+    else:
+        next_month = month + 1
+        next_year = year
+
+    base_path = request.path
+
+    return render_template(
+        'single_space_id.html',
+        space=space,
+        host_name=host_name,
+        logged_in=isinstance(user, User),
+        calendar_weeks=calendar_weeks,
+        calendar_month=month,
+        calendar_year=year,
+        calendar_month_name=month_name,
+        calendar_prev_month=prev_month,
+        calendar_prev_year=prev_year,
+        calendar_next_month=next_month,
+        calendar_next_year=next_year,
+        calendar_base_path=base_path,
+    )
 
 @app.route('/signup', methods=['POST'])
 def create_user():
@@ -188,6 +272,24 @@ def create_space_availability():
     repository = AvailabilityRepository(connection)
     repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
     return "Availability added"
+
+
+@app.route('/spaces/<int:id>/book', methods=['GET', 'POST'])
+def book_space(id):
+    """Placeholder booking route: echoes selected dates for the given space.
+
+    Accepts either GET (query params `dates=...`) or POST (form `dates` fields).
+    """
+    if request.method == 'POST':
+        dates = request.form.getlist('dates')
+    else:
+        dates = request.args.getlist('dates')
+
+    connection = get_flask_database_connection(app)
+    space_repo = SpaceRepository(connection)
+    space = space_repo.find(id)
+
+    return render_template('book_placeholder.html', space=space, dates=dates)
 
 
 # this displays the bookings to the host  and the bookings that have been rented by the same user
