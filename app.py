@@ -14,6 +14,8 @@ from lib.user_repository import UserRepository
 from lib.space import Space
 from lib.booking_repository import BookingRepository
 from lib.date_serialization import string_to_date
+from lib.booking_repository import BookingRepository
+from lib.booking import Booking
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -84,7 +86,14 @@ def get_space_by_user_id(user, id):
     connection = get_flask_database_connection(app)
     repository = SpaceRepository(connection)
     space = repository.find(id)
-    return render_template('single_space_id.html', space=space, logged_in=isinstance(user, User))
+    # route-level lookup: fetch host name to display instead of numeric id
+    user_repo = UserRepository(connection)
+    host = None
+    if space and getattr(space, 'user_id', None) is not None:
+        host = user_repo.find(space.user_id)
+    host_name = host.name if host else None
+
+    return render_template('single_space_id.html', space=space, host_name=host_name, logged_in=isinstance(user, User))
 
 @app.route('/signup', methods=['POST'])
 def create_user():
@@ -198,6 +207,19 @@ def get_bookings(user):
         # get all bookings associated with each space
 
         return render_template('bookings.html', sent_bookings=sent_bookings, received_bookings=received_bookings)
+
+
+# this displays the bookings to the host  and the bookings that have been rented by the same user
+@app.route('/requests', methods=['GET'])
+@token_required
+def get_bookings(user):
+    if not isinstance(user, User):
+        return redirect(url_for('serve_login'))
+    connection = get_flask_database_connection(app)
+    booking_repo = BookingRepository(connection)
+    hosted_bookings = booking_repo.get_by_host(user.id)
+    rented_bookings = booking_repo.get_by_renter(user.id)
+    return render_template('requests.html', rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
 
 
 # These lines start the server if you run this file directly
