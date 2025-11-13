@@ -47,7 +47,7 @@ def token_required(f):
 def serve_login(user):
     if isinstance(user, User):
         return redirect(url_for('get_space'))
-    return render_template('login.html')
+    return render_template('login.html', error=False)
 
 # @app.route('/login', methods=['POST'])
 # def user_login():
@@ -59,7 +59,7 @@ def serve_login(user):
 
 @app.route('/signup', methods=['GET'])
 def serve_signup():
-    return render_template('signup.html')
+    return render_template('signup.html', error=False)
 
 @app.route('/spaces', methods=['GET'])
 @token_required
@@ -94,18 +94,19 @@ def create_user():
     email = request.form['email']
     password = request.form['password']
 
-    if repository.find_by_email(email) != None:
+    if isinstance(repository.find_by_email(email), User):
         # account already exists
-        return render_template('signup.html', error = "Please enter an email that isn't already in use!"), 202
+        return render_template('signup.html', errormsg = "Email already in use!", error=True), 202
 
     #TODO - password validation
     if not valid_password(password):
-        return render_template('signup.html', error = "Please enter a valid password. > 7 characters, including 1 or more !£$%"), 202
+        print("posting")
+        return render_template('signup.html', errormsg = "Include 1+ !£$% character", error=True), 202
     hashed_password = hash_password(password)
 
     repository.create(User(None, name, email, hashed_password.decode('utf-8')))
 
-    return render_template('login.html'), 201
+    return render_template('login.html', error=False), 201
 
 @app.route('/login', methods=['POST'])
 def attempt_login():
@@ -117,13 +118,13 @@ def attempt_login():
 
     if not isinstance(repository.find_by_email(email), User):
         print("email wrong?")
-        return render_template('login.html', error = "One or more of your credentials was incorrect!")
+        return render_template('login.html', errormsg="Wrong credentials!", error=True)
     
     user = repository.find_by_email(email)
     password_hash = user.password_hash
     if compare_password_hash(password, password_hash) != True:
         print("password wrong:", password)
-        return render_template('login.html', error = "One or more of your credentials was incorrect!")
+        return render_template('login.html', errormsg="Wrong credentials!", error=True)
     
     #password is right and email is right
     print("Success")

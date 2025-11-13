@@ -15,16 +15,25 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 60px;
+    padding: 45px;
     background-color: var(--grey-accent);
     border: 1px solid var(--grey-dark-accent);
     box-shadow: var(--shadow);
+    align-items: center;
 }
 
 .login-title,
 .signup-title {
     color: var(--orange-accent);
     text-align: center;
+}
+
+.error-title {
+    white-space: normal;
+    max-width: 50px; /* Or a specific pixel width if the form is fixed */
+    padding: 5px 0;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
 }
 
 input[type="email"], 
@@ -37,7 +46,7 @@ input[type="submit"] {
     background-color: var(--orange-accent);
     color: white;
     border: none;
-    padding: 15px 0px;
+    padding: 15px 65px;
     border-radius: 2px;
 }
 
