@@ -29,26 +29,6 @@ def test_get_spaces(page, test_web_address, db_connection):
 
 
 
-"""
-We can render the index page
-"""
-def test_get_index(page, test_web_address, db_connection):
-    db_connection.seed("seeds/makersbnb.sql")
-    
-    # We load a virtual browser and navigate to the /index page
-    page.goto(f"http://{test_web_address}/index")
-
-    # We look for the header
-    header = page.locator(".homepage-header h1")
-
-    # We assert that it has the updated heading text
-    expect(header).to_have_text("Find Your Perfect Space")
-    
-    # We check that space cards are rendered
-    space_cards = page.locator(".space-card")
-    expect(space_cards).to_have_count(6)
-
-
 def test_get_space_availability(db_connection, web_client):
     db_connection.seed("seeds/makersbnb.sql")
 

@@ -1,8 +1,10 @@
 import os
 import jwt
 import bcrypt
+from lib.authentication_utility import valid_password, hash_password, compare_password_hash
+from datetime import datetime, timezone, timedelta
 from functools import wraps
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, url_for, redirect
 from lib.database_connection import get_flask_database_connection
 from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
@@ -10,63 +12,38 @@ from lib.space_repository import SpaceRepository
 from lib.user import User
 from lib.user_repository import UserRepository
 from lib.space import Space
-from lib.user_repository import UserRepository
 from lib.date_serialization import string_to_date
 
 # Create a new Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "wow_so_secret"
 
-# User Authentication #
-
-# Returns a salted, hashed password
-def hash_password(password):
-    password_bytes = password.encode("utf-8")
-    salt = bcrypt.gensalt(12)
-    return bcrypt.hashpw(password_bytes, salt)
-
-# Takes in a plain text password and a hashed password and returns a boolean
-# depending on if they are the same
-def compare_password_hash(entered_password, hashed_password):
-    password_bytes = entered_password.encode('utf-8')
-    return bcrypt.checkpw(password_bytes, hashed_password)
-
-# Returns boolean - if password is valid or not:
-# 7+ chars, 1 special symbol (!@£$%)
-def valid_password(password):
-    special_chars = ['!', '@', "£", "$", "%"]
-    if len(password) < 7:
-        return False
-    else:
-        has_special = False
-        for char in password:
-            if char in special_chars:
-                has_special == True
-        return has_special
-
+#== User authentication ==#
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = request.cookies.get('jwt_token')
 
         if not token:
-            return jsonify({'message': 'Token missing'}), 401
+            return f(None, *args, **kwargs)
+            return redirect(url_for('serve_login'))
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
-            connection = get_flask_database_connection()
+            connection = get_flask_database_connection(app)
             repo = UserRepository(connection)
 
-            user = repo.find(data.user_id)
+            user = repo.find(data['user_id'])
             
-        except:
-            return jsonify({'message': 'Token invalid'}), 401
+        except Exception as e:
+            return f(None, *args, **kwargs)
+            return redirect(url_for('serve_login'))
 
         return f(user, *args, **kwargs)
 
     return decorated
 
-# Routes #
+#== Routes ==#
 @app.route('/login', methods=['GET'])
 def serve_login():
     return render_template('login.html')
@@ -84,7 +61,12 @@ def serve_signup():
     return render_template('signup.html')
 
 @app.route('/spaces', methods=['GET'])
-def get_space():
+@token_required
+def get_space(user):
+    if not isinstance(user, User):
+        print("User is not logged in do whatever here")
+    else:
+        print(user.id, user.name, user.email, user.password_hash)
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
     spaces = space_repo.all()
@@ -100,10 +82,10 @@ def create_space():
 
 @app.route('/spaces/<id>', methods=['GET'])
 def get_space_by_user_id(id):
-    connection = get_flask_database_connection(app)
-    repository = SpaceRepository(connection)
-    space = repository.find(id)
-    return render_template('single_space_id.html', space=space)
+        connection = get_flask_database_connection(app)
+        repository = SpaceRepository(connection)
+        space = repository.find(id)
+        return render_template('single_space_id.html', space=space)
 
 @app.route('/signup', methods=['POST'])
 def create_user():
@@ -116,15 +98,49 @@ def create_user():
 
     if repository.find_by_email(email) != None:
         # account already exists
-        return render_template('/signup'), 202
+        return render_template('signup.html', error = "Please enter an email that isn't already in use!"), 202
 
     #TODO - password validation
+    if not valid_password(password):
+        return render_template('signup.html', error = "Please enter a valid password. > 7 characters, including 1 or more !£$%"), 202
     hashed_password = hash_password(password)
 
     repository.create(User(None, name, email, hashed_password.decode('utf-8')))
 
-    return "Added user", 201
+    return render_template('login.html'), 201
 
+@app.route('/login', methods=['POST'])
+def attempt_login():
+    connection = get_flask_database_connection(app)
+    repository = UserRepository(connection)
+
+    email = request.form['email']
+    password = request.form['password'].strip(" ")
+
+    if not isinstance(repository.find_by_email(email), User):
+        print("email wrong?")
+        return render_template('login.html', error = "One or more of your credentials was incorrect!")
+    
+    user = repository.find_by_email(email)
+    password_hash = user.password_hash
+    if compare_password_hash(password, password_hash) != True:
+        print("password wrong:", password)
+        return render_template('login.html', error = "One or more of your credentials was incorrect!")
+    
+    #password is right and email is right
+    print("Success")
+    token = jwt.encode({'user_id': user.id, 'exp': datetime.now(timezone.utc) + timedelta(hours=1)}, app.config['SECRET_KEY'], algorithm="HS256")
+    response = make_response(redirect(url_for("get_index")))
+    response.set_cookie('jwt_token', token)
+
+    return response
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    response = make_response(redirect(url_for('serve_login')))
+    response.set_cookie('jwt_token', '')
+
+    return response
 
 # == Your Routes Here ==
 
@@ -138,11 +154,14 @@ def debug_db_name():
     print("Connected to database:", conn._database_name())
     
 @app.route('/index', methods=['GET'])
-def get_index():
-    connection = get_flask_database_connection(app)
-    space_repo = SpaceRepository(connection)
-    spaces = space_repo.all()
-    return render_template('index.html', spaces=spaces)
+
+@token_required
+def get_index(user):
+    return redirect(url_for('get_space'))
+
+@app.route('/', methods=['GET'])
+def get_home():
+    return redirect(url_for('get_space'))
 
 @app.route('/spaces/<int:id>/availability', methods=['GET'])
 def get_space_availability(id):
