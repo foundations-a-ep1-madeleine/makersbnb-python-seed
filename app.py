@@ -83,7 +83,14 @@ def get_space_by_user_id(user, id):
     connection = get_flask_database_connection(app)
     repository = SpaceRepository(connection)
     space = repository.find(id)
-    return render_template('single_space_id.html', space=space, logged_in=isinstance(user, User))
+    # route-level lookup: fetch host name to display instead of numeric id
+    user_repo = UserRepository(connection)
+    host = None
+    if space and getattr(space, 'user_id', None) is not None:
+        host = user_repo.find(space.user_id)
+    host_name = host.name if host else None
+
+    return render_template('single_space_id.html', space=space, host_name=host_name, logged_in=isinstance(user, User))
 
 @app.route('/signup', methods=['POST'])
 def create_user():
