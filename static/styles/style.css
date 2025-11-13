@@ -10,6 +10,12 @@ body {
     line-height: 1.6;
     color: #1a1a1a;
     background-color: #ffffff;
+    --orange-accent: #ff385d;
+    --orange-dark-accent: #e73253;
+    --orange-darkest-accent: #d02c4a;
+    --grey-accent: #f9f9f9;
+    --grey-dark-accent: #ebebeb;
+    --shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
 }
 
 /* Homepage Container */

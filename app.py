@@ -4,7 +4,7 @@ import bcrypt
 from lib.authentication_utility import valid_password, hash_password, compare_password_hash
 from datetime import datetime, timezone, timedelta
 from functools import wraps
-from flask import Flask, request, render_template, jsonify, make_response, url_for, redirect
+from flask import Flask, request, render_template, jsonify, url_for, redirect
 from lib.database_connection import get_flask_database_connection
 from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability
@@ -154,12 +154,14 @@ def debug_db_name():
     print("Connected to database:", conn._database_name())
     
 @app.route('/index', methods=['GET'])
+
 @token_required
 def get_index(user):
-    connection = get_flask_database_connection(app)
-    space_repo = SpaceRepository(connection)
-    spaces = space_repo.all()
-    return render_template('index.html', spaces=spaces)
+    return redirect(url_for('get_space'))
+
+@app.route('/', methods=['GET'])
+def get_home():
+    return redirect(url_for('get_space'))
 
 @app.route('/spaces/<int:id>/availability', methods=['GET'])
 def get_space_availability(id):
