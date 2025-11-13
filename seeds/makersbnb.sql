@@ -48,9 +48,10 @@ INSERT INTO users (name, email, password_hash) VALUES ('Sam Llewellyn', 'saml@ex
 INSERT INTO users (name, email, password_hash) VALUES ('Anna Veselova', 'annav@example.com', 'hash_for_anna');
 INSERT INTO users (name, email, password_hash) VALUES ('Nazarii', 'nazarii@example.com', 'hash_for_nazarii');
 INSERT INTO users (name, email, password_hash) VALUES ('Margot Bourne', 'margotb@example.com', 'hash_for_margot');
+INSERT INTO users (name, email, password_hash) VALUES ('Testing Account', 'pytest@pytest.com', '$2b$12$QKinH9vWDAA4WVL6nSaMuO.1OQ5cCyZo5mu1KzCYVyeGBzZJYzt2y');
 
 -- Seed spaces (Airbnb-style listings)
-INSERT INTO spaces (name, description, price, user_id, image_url) VALUES 
+INSERT INTO spaces (name, description, price, user_id, image_url) VALUES
 ('Cozy City Apartment', 'Modern 1-bed apartment in central London, near cafes and transport.', 120.00, 1, 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop'),
 ('Seaside Cottage', 'Charming cottage overlooking the sea. Perfect for a weekend getaway.', 180.00, 2, 'https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=800&h=600&fit=crop'),
 ('Mountain Cabin', 'Rustic cabin with a fireplace and forest views in the Lake District.', 150.00, 3, 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop'),

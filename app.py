@@ -4,7 +4,7 @@ import bcrypt
 from lib.authentication_utility import valid_password, hash_password, compare_password_hash
 from datetime import datetime, timezone, timedelta
 from functools import wraps
-from flask import Flask, request, render_template, jsonify, url_for, redirect
+from flask import Flask, request, render_template, jsonify, url_for, redirect, make_response
 from lib.database_connection import get_flask_database_connection
 from lib.availability_repository import AvailabilityRepository
 from lib.availability import Availability

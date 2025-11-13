@@ -106,7 +106,7 @@ def test_signup_backend_correct(db_connection, web_client):
     assert response.status_code == 201
 
     repo = UserRepository(db_connection)
-    user = repo.find(7)
+    user = repo.find(8)
 
     assert user.name == "John Smith" and user.email == "johns@xyz123.com"
     assert bcrypt.checkpw("reallygoodpassword123!".encode('utf-8'), user.password_hash.encode("utf-8")) == True
@@ -123,7 +123,7 @@ def test_signup_backend_incorrect(db_connection, web_client):
     assert response.status_code == 201
 
     repo = UserRepository(db_connection)
-    user = repo.find(7)
+    user = repo.find(8)
 
     assert user.name == "John Smith" and user.email == "johns@xyz123.com"
     assert bcrypt.checkpw("nottheactualpasswordwhat".encode('utf-8'), user.password_hash.encode("utf-8")) == False
