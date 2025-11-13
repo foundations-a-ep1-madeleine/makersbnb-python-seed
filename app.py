@@ -26,7 +26,6 @@ def token_required(f):
 
         if not token:
             return f(None, *args, **kwargs)
-            return redirect(url_for('serve_login'))
 
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
@@ -37,7 +36,6 @@ def token_required(f):
             
         except Exception as e:
             return f(None, *args, **kwargs)
-            return redirect(url_for('serve_login'))
 
         return f(user, *args, **kwargs)
 
@@ -66,14 +64,10 @@ def serve_signup():
 @app.route('/spaces', methods=['GET'])
 @token_required
 def get_space(user):
-    if not isinstance(user, User):
-        print("User is not logged in do whatever here")
-    else:
-        print(user.id, user.name, user.email, user.password_hash)
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
     spaces = space_repo.all()
-    return render_template('spaces.html', spaces=spaces)
+    return render_template('spaces.html', spaces=spaces, logged_in=isinstance(user, User))
 
 @app.route('/spaces', methods=['POST'])
 def create_space():
@@ -83,12 +77,13 @@ def create_space():
     space = repository.create(space)
     return "Space added successfully"
 
-@app.route('/spaces/<id>', methods=['GET'])
-def get_space_by_user_id(id):
-        connection = get_flask_database_connection(app)
-        repository = SpaceRepository(connection)
-        space = repository.find(id)
-        return render_template('single_space_id.html', space=space)
+@app.route('/spaces/<int:id>', methods=['GET'])
+@token_required
+def get_space_by_user_id(user, id):
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    space = repository.find(id)
+    return render_template('single_space_id.html', space=space, logged_in=isinstance(user, User))
 
 @app.route('/signup', methods=['POST'])
 def create_user():
@@ -138,7 +133,7 @@ def attempt_login():
 
     return response
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['POST', 'GET'])
 def logout():
     response = make_response(redirect(url_for('serve_login')))
     response.set_cookie('jwt_token', '')
