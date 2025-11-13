@@ -12,6 +12,7 @@ from lib.space_repository import SpaceRepository
 from lib.user import User
 from lib.user_repository import UserRepository
 from lib.space import Space
+from lib.booking_repository import BookingRepository
 from lib.date_serialization import string_to_date
 
 # Create a new Flask app
@@ -154,7 +155,6 @@ def debug_db_name():
     print("Connected to database:", conn._database_name())
     
 @app.route('/index', methods=['GET'])
-
 @token_required
 def get_index(user):
     return redirect(url_for('get_space'))
@@ -182,6 +182,24 @@ def create_space_availability():
     repository = AvailabilityRepository(connection)
     repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
     return "Availability added"
+
+@app.route('/bookings', methods=['GET'])
+@token_required
+def get_bookings(user):
+    if not isinstance(user, User):
+        # if not logged in then send user to the login page
+        redirect(url_for('serve_login'))
+    else:
+        # if logged in then render the bookings page
+        connection = get_flask_database_connection(app)
+        booking_repository = BookingRepository(connection)
+        
+        sent_bookings = booking_repository.get_by_renter(user.id)
+        owned_spaces = "?"
+        # get all spaces owned by user
+        # get all bookings associated with each space
+
+        return render_template('bookings.html', sent_bookings=sent_bookings, received_bookings=received_bookings)
 
 
 # These lines start the server if you run this file directly
