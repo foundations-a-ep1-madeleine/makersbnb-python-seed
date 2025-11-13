@@ -67,3 +67,11 @@ def test_delete_booking(db_connection):
         Booking(5, date(2025,12,5), False, 5, 6),
         Booking(6, date(2025,11,12), True, 6, 1),
     ]
+
+
+def test_get_by_host_id(db_connection):
+    db_connection.seed("seeds/makersbnb.sql")
+    repository = BookingRepository(db_connection)
+    bookings = repository.get_by_host(3)
+    assert bookings == [{'confirmed': True,'space_id': 3, 'date': date(2025, 12, 12), 'host_name': 'Sam Llewellyn', 'space_name': 'Mountain Cabin'}]
+

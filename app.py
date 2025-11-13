@@ -13,6 +13,8 @@ from lib.user import User
 from lib.user_repository import UserRepository
 from lib.space import Space
 from lib.date_serialization import string_to_date
+from lib.booking_repository import BookingRepository
+from lib.booking import Booking
 
 # Create a new Flask app
 app = Flask(__name__)
@@ -190,13 +192,47 @@ def get_all_bookings():
     bookings = repository.all()
     return render_template('requests.html', bookings=bookings)
 
+# this displays the bookings to the host  and the bookings that have been rented by the same user
+@app.route('/requests', methods=['GET'])
+@token_required
+def get_bookings(user):
+    if not isinstance(user, User):
+        print("User is not logged in do whatever here")
+    else:
+        print(user.id, user.name, user.email, user.password_hash)
+    connection = get_flask_database_connection(app)
+    booking_repo = BookingRepository(connection)
+    hosted_bookings = booking_repo.get_by_host(user.id)
+    rented_bookings = booking_repo.get_by_renter(user.id)
+    return render_template('requests.html', rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
 
-# @app.route('/requests/confirmed', methods = ['GET'])
-# def 
+# route to create bookings - need to change url name 
+# @app.route('/requests', methods=['POST'])
+# @token_required
+# def create_bookings(user):
+#     if not isinstance(user, User):
+#         print("User is not logged in do whatever here")
+#     else:
+#         print(user.id, user.name, user.email, user.password_hash)
+#     connection = get_flask_database_connection(app)
+#     booking_repo = BookingRepository(connection)
+#     new_booking = Booking(None, request.form['date'], request.form['confirmed'], request.form['space_id'], request.form['user_id'])
+#     new_booking = booking_repo.create(new_booking)
+#     return "Success"
 
-# @app.route('')
-
-
+# # route to create bookings - need to change url name 
+# @app.route('/requests', methods=['POST'])
+# @token_required
+# def delete_bookings(user):
+#     if not isinstance(user, User):
+#         print("User is not logged in do whatever here")
+#     else:
+#         print(user.id, user.name, user.email, user.password_hash)
+#     connection = get_flask_database_connection(app)
+#     booking_repo = BookingRepository(connection)
+#     new_booking = Booking(None, request.form['date'], request.form['confirmed'], request.form['space_id'], request.form['user_id'])
+#     new_booking = booking_repo.create(new_booking)
+#     return "Success"
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
