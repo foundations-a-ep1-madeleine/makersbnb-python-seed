@@ -82,10 +82,16 @@ def create_space():
 
 @app.route('/spaces/<id>', methods=['GET'])
 def get_space_by_user_id(id):
-        connection = get_flask_database_connection(app)
-        repository = SpaceRepository(connection)
-        space = repository.find(id)
-        return render_template('single_space_id.html', space=space)
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    space = repository.find(id)
+
+    # Fetch host/user name for display on the single-space page
+    user_repo = UserRepository(connection)
+    host = user_repo.find(space.user_id) if space and space.user_id is not None else None
+    host_name = host.name if host else None
+
+    return render_template('single_space_id.html', space=space, host_name=host_name)
 
 @app.route('/signup', methods=['POST'])
 def create_user():
