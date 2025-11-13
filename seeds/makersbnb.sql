@@ -9,7 +9,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   email text NOT NULL UNIQUE,
-  password_hash TEXT NOT NULL
+  password_hash TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -19,6 +19,7 @@ CREATE TABLE spaces (
   description TEXT NOT NULL,
   price NUMERIC(7,2) NOT NULL,
   user_id INT NOT NULL,
+  image_url TEXT,
   CONSTRAINT fk_spaces_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -49,13 +50,13 @@ INSERT INTO users (name, email, password_hash) VALUES ('Nazarii', 'nazarii@examp
 INSERT INTO users (name, email, password_hash) VALUES ('Margot Bourne', 'margotb@example.com', 'hash_for_margot');
 
 -- Seed spaces (Airbnb-style listings)
-INSERT INTO spaces (name, description, price, user_id) VALUES 
-('Cozy City Apartment', 'Modern 1-bed apartment in central London, near cafes and transport.', 120.00, 1),
-('Seaside Cottage', 'Charming cottage overlooking the sea. Perfect for a weekend getaway.', 180.00, 2),
-('Mountain Cabin', 'Rustic cabin with a fireplace and forest views in the Lake District.', 150.00, 3),
-('Modern Loft', 'Bright open-plan loft in downtown Manchester with skyline views.', 200.00, 4),
-('Countryside Retreat', 'Peaceful farmhouse surrounded by fields and trails.', 130.00, 5),
-('Studio Flat', 'Compact studio ideal for solo travellers, near Oxford city centre.', 95.00, 6);
+INSERT INTO spaces (name, description, price, user_id, image_url) VALUES 
+('Cozy City Apartment', 'Modern 1-bed apartment in central London, near cafes and transport.', 120.00, 1, 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop'),
+('Seaside Cottage', 'Charming cottage overlooking the sea. Perfect for a weekend getaway.', 180.00, 2, 'https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?w=800&h=600&fit=crop'),
+('Mountain Cabin', 'Rustic cabin with a fireplace and forest views in the Lake District.', 150.00, 3, 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop'),
+('Modern Loft', 'Bright open-plan loft in downtown Manchester with skyline views.', 200.00, 4, 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop'),
+('Countryside Retreat', 'Peaceful farmhouse surrounded by fields and trails.', 130.00, 5, 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop'),
+('Studio Flat', 'Compact studio ideal for solo travellers, near Oxford city centre.', 95.00, 6, 'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&h=600&fit=crop');
 
 -- Seed availabilities (each space has different available ranges)
 INSERT INTO availabilities (start_date, end_date, space_id) VALUES
