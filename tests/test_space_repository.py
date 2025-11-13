@@ -22,6 +22,20 @@ def test_get_all_spaces(db_connection):
        
     ]
 
+"""
+When we call SpaceRepository#find_by_user
+We get a list of Space objects owned by a given user_id, reflecting the seed data.
+"""
+def test_get_all_spaces(db_connection): 
+    db_connection.seed("seeds/makersbnb.sql") 
+    repository = SpaceRepository(db_connection) 
+
+    spaces = repository.find_by_user(1) 
+
+    assert spaces == [
+        Space(1,'Cozy City Apartment', 'Modern 1-bed apartment in central London, near cafes and transport.', 120.00, 1, 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop'),
+    ]
+
 
 """
 When we call SpaceRepository#find

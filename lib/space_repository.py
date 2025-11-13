@@ -9,7 +9,14 @@ class SpaceRepository:
         rows = self._connection.execute('SELECT * from spaces')
         spaces = []
         for row in rows:
-            print(row)
+            item = Space(row["id"], row["name"], row["description"], row["price"], row["user_id"], row["image_url"])
+            spaces.append(item)
+        return spaces
+
+    def find_by_user(self, user_id):
+        rows = self._connection.execute('SELECT * from spaces WHERE user_id = %s', [user_id])
+        spaces = []
+        for row in rows:
             item = Space(row["id"], row["name"], row["description"], row["price"], row["user_id"], row["image_url"])
             spaces.append(item)
         return spaces
