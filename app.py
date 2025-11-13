@@ -45,6 +45,14 @@ def create_space():
     space = repository.create(space)
     return "Space added successfully"
 
+
+@app.route("/space/<id>", methods=["DELETE"])
+def guide_delete(user_id):
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    repo = repository.delete(id)
+    return "Space deleated successfully"
+
 @app.route('/spaces/<id>', methods=['GET'])
 def get_space_by_user_id(id):
     connection = get_flask_database_connection(app)
