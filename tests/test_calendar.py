@@ -11,7 +11,8 @@ def test_calendar_shows_available_days_and_links(db_connection, web_client):
     html = response.data.decode('utf-8')
 
     # We expect at least one available day (from seed: 2025-11-01 -> 2025-11-15)
-    assert 'class="available"' in html
+    assert 'class="calendar-cell' in html
+    assert 'available' in html
 
     # The calendar now uses checkboxes for multi-selection; ensure the form and inputs exist
     assert 'name="dates"' in html
@@ -25,6 +26,7 @@ def test_calendar_other_months_are_shown(db_connection, web_client):
     response = web_client.get('/spaces/1?year=2025&month=12')
     assert response.status_code == 200
     html = response.data.decode('utf-8')
-    assert 'class="available"' in html
+    assert 'calendar-cell' in html
+    assert 'available' in html
     assert 'name="dates"' in html
     assert 'value="2025-12-05"' in html
