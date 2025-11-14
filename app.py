@@ -305,6 +305,31 @@ def get_bookings(user):
     rented_bookings = booking_repo.get_by_renter(user.id)
     return render_template('requests.html', rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
 
+@app.route('/bookings/<int:booking_id>/deny', methods=['POST'])
+@token_required
+def deny_booking(user, booking_id):
+    if not isinstance(user, User):
+        return "You must be logged in to perform this action.", 401
+
+    connection = get_flask_database_connection(app)
+    booking_repo = BookingRepository(connection)
+    space_repo = SpaceRepository(connection)
+
+    booking = booking_repo.get_by_id(booking_id)
+    if not booking:
+        return "Booking not found.", 404
+
+    space = space_repo.find(booking.space_id)
+    if not space:
+        return "Associated space not found.", 404
+
+    if space.user_id != user.id:
+        return "You are not authorized to deny this booking.", 403
+
+    booking_repo.deny(booking_id)
+
+    return redirect(url_for('get_bookings'))
+
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
