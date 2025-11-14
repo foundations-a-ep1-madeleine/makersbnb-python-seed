@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookings - MakersBnB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/bookings.css">
+  </head>
+  <body>
+    <nav class="header">
+      <ul>
+        <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></li>
+        <li class="links">
+          <ul>
+            <li><a href="/signup">Sign Up</a></li>
+            <p>|</p>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="homepage-container">
+        <header class="homepage-header">
+            <div class="geometric-animation geometric-animation-right">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            </div>
+            <div class="geometric-animation geometric-animation-left">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            </div>
+            <h1>Your Bookings</h1>
+            <p class="subtitle">View your sent and received booking requests</p>
+        </header>
+
+        <div class="bookings-container">
+            <div class="received bookings-grid">
+                {% for booking in sent_bookings %}
+                <div class="received booking-card">
+                    <div class="received booking-card-text-container">
+                        <a href="/spaces/{{ booking.space_id }}" class="received booking-card-link"></a>
+                        <p class="received booking-card-status">{{ booking.status }}</p>
+                        <p class="received booking-card-date">{{ booking.date }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    
+            <div class="received bookings-grid">
+                {% for booking in bookings_received %}
+                <div class="received booking-card">
+                    <div class="received booking-card-text-container">
+                        <a href="/spaces/{{ booking.space_id }}" class="received booking-card-link"></a>
+                        <p class="received booking-card-status">{{ booking.status }}</p>
+                        <p class="received booking-card-date">{{ booking.date }}</p>
+                        {% if booking.status == false %}
+                        <div class="received booking-card-buttons">
+                            <button>Deny</button>
+                            <button>Approve</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    </div>
+    <footer class="footer">
+        <p class="copyright">©2025 Makers Academy</p>
+        <p>Created by:</p>
+        <p><a href="https://github.com/isaac-madgwick">Isaac Madgewick</a></p>
+        <p><a href="https://github.com/AnyaVeselova">Anna Veselova</a></p>
+        <p><a href="https://github.com/Supersabjey">Sabia Jeyaratnam</a></p>
+        <p><a href="https://github.com/Awynnm">Nazarii</a></p>
+        <p><a href="https://github.com/margot-bourne">Margot Bourne</a></p>
+        <p><a href="https://github.com/s111ew">Sam Llewellyn</a></p>
+    </footer>
+  </body>
+</html>
