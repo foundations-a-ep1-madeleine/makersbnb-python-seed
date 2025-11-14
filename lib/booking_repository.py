@@ -60,6 +60,12 @@ class BookingRepository:
     
     def deny(self, booking_id):
         self._connection.execute(
-            'UPDATE bookings SET confirmed = FALSE WHERE id = %s',
+            'UPDATE bookings SET confirmed = FALSE WHERE id = %s' ,
+            [booking_id])
+        return None
+    
+    def accept_booking(self,booking_id):
+        self._connection.execute(
+            'UPDATE bookings SET confirmed = TRUE WHERE id = %s',
             [booking_id])
         return None
