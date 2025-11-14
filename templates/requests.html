@@ -42,7 +42,7 @@
 
         <div class="bookings-container">
             <div class="sent bookings-grid">
-              <h2>Booking Requests you've sent</h2>
+              <h2 class="bookings-grid-title">Booking Requests you've sent</h2>
               {% for booking in rented_bookings %}
               <div class="received booking-card">
                 <img class="received booking-image" src="{{booking.space_image}}" alt="{{ booking.space_name }}">
@@ -56,7 +56,7 @@
             </div>
             
             <div class="received bookings-grid">
-              <h2>Booking Requests you've received</h2>
+              <h2 class="bookings-grid-title">Booking Requests you've received</h2>
                 {% for booking in hosted_bookings %}
                 <div class="received booking-card">
                     <img class="received booking-image" src="{{booking.image_url}}" alt="{{ booking.name }}">
