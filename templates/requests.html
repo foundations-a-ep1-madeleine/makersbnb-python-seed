@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles/style.css">
-    <link rel="stylesheet" href="/static/styles/bookings.css">
+    <link rel="stylesheet" href="/static/styles/requests.css">
   </head>
   <body>
     <nav class="header">
@@ -47,25 +47,29 @@
 
         <div class="bookings-container">
             <div class="sent bookings-grid">
-                {% for booking in rented_bookings %}
-                <div class="received booking-card">
-                    <div class="received booking-card-text-container">
-                        <a href="/spaces/{{ booking.space_id }}" class="received booking-card-link">{{ booking.space_name }}</a>
-                        <p class="received booking-card-status">{{ booking.confirmed }}</p>
-                        <p class="received booking-card-date">{{ booking.date }}</p>
-                    </div>
+              <h2>Booking Requests you've sent</h2>
+              {% for booking in rented_bookings %}
+              <div class="received booking-card">
+                <img class="received booking-image" src="{{booking.space_image}}" alt="{{ booking.space_name }}">
+                <div class="received booking-card-text-container">
+                  <a href="/spaces/{{ booking.space_id }}" class="received booking-card-link">{{ booking.space_name }}</a>
+                  <p class="received booking-card-status">Confirmed: {{ booking.confirmed }}</p>
+                  <p class="received booking-card-date">Date: {{ booking.date }}</p>
                 </div>
-                {% endfor %}
+              </div>
+              {% endfor %}
             </div>
-    
+            
             <div class="received bookings-grid">
+              <h2>Booking Requests you've received</h2>
                 {% for booking in hosted_bookings %}
                 <div class="received booking-card">
+                    <img class="received booking-image" src="{{booking.image_url}}" alt="{{ booking.name }}">
                     <div class="received booking-card-text-container">
-                        <a href="/spaces/{{ booking.space_id }}" class="received booking-card-link">{{ booking.space_name }}</a>
-                        <p class="received booking-card-status">{{ booking.confirmed }}</p>
-                        <p class="received booking-card-date">{{ booking.date }}</p>
-                        {% if booking.status == false %}
+                        <a href="/spaces/{{ booking.space_id }}" class="received booking-card-link">{{ booking.name }}</a>
+                        <p class="received booking-card-status">Confirmed: {{ booking.confirmed }}</p>
+                        <p class="received booking-card-date">Date: {{ booking.date }}</p>
+                        {% if booking.confirmed == false %}
                         <div class="received booking-card-buttons">
                             <button>Deny</button>
                             <button>Approve</button>

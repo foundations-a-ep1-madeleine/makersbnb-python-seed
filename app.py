@@ -363,8 +363,13 @@ def get_bookings(user):
         return redirect(url_for('serve_login'))
     connection = get_flask_database_connection(app)
     booking_repo = BookingRepository(connection)
+    
     hosted_bookings = booking_repo.get_by_host(user.id)
+
     rented_bookings = booking_repo.get_by_renter(user.id)
+    for booking in rented_bookings:
+        booking_repo.add_space_name_image_to_booking(booking)
+
     return render_template('requests.html', user=user, rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
 
 # These lines start the server if you run this file directly
