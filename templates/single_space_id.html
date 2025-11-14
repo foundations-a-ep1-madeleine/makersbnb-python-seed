@@ -47,7 +47,6 @@
           
           <div class="space-footer">
             <span class="space-price">£{{space.price}}/night</span>
-            <a href="/spaces/{{space.id}}/availability" class="view-button" aria-label="Book this space">Book</a>
           </div>
           
           <div style="margin-top: 20px;">
@@ -55,6 +54,51 @@
               <span class="info-label">Host:</span>
               <span class="info-value">{{ host_name or space.user_id }}</span>
             </div>
+          </div>
+        
+          <div class="space-calendar-container">
+            <div class="calendar-nav">
+              <a class="calendar-nav-link prev" href="{{ calendar_base_path }}?year={{ calendar_prev_year }}&month={{ calendar_prev_month }}">← Prev</a>
+              <span class="calendar-title">{{ calendar_month_name }} {{ calendar_year }}</span>
+              <a class="calendar-nav-link next" href="{{ calendar_base_path }}?year={{ calendar_next_year }}&month={{ calendar_next_month }}">Next →</a>
+            </div>
+
+            <form id="calendar-form" method="get" action="/spaces/{{space.id}}/book">
+              <table class="calendar-table" role="grid" aria-label="Availability calendar">
+                <thead>
+                  <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for week in calendar_weeks %}
+                  <tr>
+                    {% for day in week %}
+                    <td class="calendar-cell {% if not day.in_month %}other-month{% endif %} {% if day.available %}available{% else %}unavailable{% endif %}">
+                      {% if day.available %}
+                        <input type="checkbox" id="d-{{ day.iso }}" name="dates" value="{{ day.iso }}">
+                        <label for="d-{{ day.iso }}">{{ day.day }}</label>
+                      {% else %}
+                        <span class="day-label">{{ day.day }}</span>
+                      {% endif %}
+                    </td>
+                    {% endfor %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+
+              <div style="margin-top:12px; display:flex; gap:12px; align-items:center;">
+                <button type="submit" class="view-button">Book selected dates</button>
+                <small class="muted">Select one or more available dates, then press Book.</small>
+              </div>
+            </form>
           </div>
         </div>
       </div>
