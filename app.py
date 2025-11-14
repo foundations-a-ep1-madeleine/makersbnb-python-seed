@@ -355,18 +355,19 @@ def book_space(user,id):
 
     Accepts either GET (query params `dates=...`) or POST (form `dates` fields).
     """
+    
     if not isinstance(user, User):
         return redirect(url_for('serve_login'))
     if request.method == 'POST':
+        connection = get_flask_database_connection(app)
+        booking_repo = BookingRepository(connection)
         dates = request.form.getlist('dates')
+        for date in dates:
+            booking = booking_repo.create(Booking(None, datetime.fromisoformat(date).date(), False, id, user.id  ))
     else:
         dates = request.args.getlist('dates')
 
-    connection = get_flask_database_connection(app)
-    space_repo = SpaceRepository(connection)
-    space = space_repo.find(id)
-
-    return render_template('book_placeholder.html', space=space, dates=dates)
+    return redirect(url_for("get_bookings"))
 
 
 # this displays the bookings to the host  and the bookings that have been rented by the same user

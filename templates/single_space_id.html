@@ -64,7 +64,7 @@
               <a class="calendar-nav-link next" href="{{ calendar_base_path }}?year={{ calendar_next_year }}&month={{ calendar_next_month }}">Next →</a>
             </div>
 
-            <form id="calendar-form" method="get" action="/spaces/{{space.id}}/book">
+            <form id="calendar-form" method="post" action="/spaces/{{space.id}}/book">
               <table class="calendar-table" role="grid" aria-label="Availability calendar">
                 <thead>
                   <tr>
