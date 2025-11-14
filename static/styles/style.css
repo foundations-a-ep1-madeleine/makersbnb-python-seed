@@ -496,6 +496,23 @@ body {
     flex-wrap: wrap;
 }
 
+.enter-space {
+    padding: 10px 24px;
+    background: #FF6B35;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 42px;
+    position: relative;
+    left: 43%;
+    top: -20%;
+    text-decoration: none;
+}
+
 .filter-field {
     display: flex;
     flex-direction: column;
