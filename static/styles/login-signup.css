@@ -6,12 +6,21 @@
     gap: 50px;
 }
 
+.create-space {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 50px;
+}
+
 .copy {
     text-align: center;
 }
 
 .login-form,
-.signup-form {
+.signup-form,
+.space-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -39,6 +48,7 @@
 input[type="email"], 
 input[type="text"], 
 input[type="password"] {
+    width: 100%;
     padding: 15px 15px;
 }
 
