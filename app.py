@@ -190,25 +190,6 @@ def create_space_availability():
     repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
     return "Availability added"
 
-@app.route('/bookings', methods=['GET'])
-@token_required
-def get_bookings(user):
-    if not isinstance(user, User):
-        # if not logged in then send user to the login page
-        redirect(url_for('serve_login'))
-    else:
-        # if logged in then render the bookings page
-        connection = get_flask_database_connection(app)
-        booking_repository = BookingRepository(connection)
-        
-        sent_bookings = booking_repository.get_by_renter(user.id)
-        owned_spaces = "?"
-        # get all spaces owned by user
-        # get all bookings associated with each space
-
-        return render_template('bookings.html', sent_bookings=sent_bookings, received_bookings=received_bookings)
-
-
 # this displays the bookings to the host  and the bookings that have been rented by the same user
 @app.route('/requests', methods=['GET'])
 @token_required
@@ -220,7 +201,6 @@ def get_bookings(user):
     hosted_bookings = booking_repo.get_by_host(user.id)
     rented_bookings = booking_repo.get_by_renter(user.id)
     return render_template('requests.html', rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
-
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
