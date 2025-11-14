@@ -16,7 +16,9 @@ def test_get_all_records(db_connection):
         Availability(4,date(2025,12,10), date(2025,12,31), 3),
         Availability(5,date(2025,11,15), date(2025,11,30), 4),
         Availability(6,date(2025,12,1), date(2025,12,15), 5),
-        Availability(7,date(2025,11,10), date(2025,11,20), 6)
+        Availability(7,date(2025,11,10), date(2025,11,20), 6),
+        Availability(8,date(2025, 11, 12), date(2025, 11, 19), 7),
+        Availability(9,date(2025, 11, 12), date(2025, 11, 19), 8)
     ]
 
 
@@ -62,7 +64,9 @@ def test_create_record(db_connection):
         Availability(5,date(2025,11,15), date(2025,11,30), 4),
         Availability(6,date(2025,12,1), date(2025,12,15), 5),
         Availability(7,date(2025,11,10), date(2025,11,20), 6),
-        Availability(8,date(2025,1,1), date(2025,10,13), 6)
+        Availability(8,date(2025, 11, 12), date(2025, 11, 19), 7),
+        Availability(9,date(2025, 11, 12), date(2025, 11, 19), 8),
+        Availability(10,date(2025,1,1), date(2025,10,13), 6)
     ]
 
 def test_update_record(db_connection):
@@ -78,7 +82,9 @@ def test_update_record(db_connection):
         Availability(4,date(2025,12,10), date(2025,12,31), 3),
         Availability(5,date(2025,11,15), date(2025,11,30), 4),
         Availability(6,date(2025,12,1), date(2025,12,15), 5),
-        Availability(7,date(2025,11,10), date(2025,11,20), 6)
+        Availability(7,date(2025,11,10), date(2025,11,20), 6),
+        Availability(8,date(2025, 11, 12), date(2025, 11, 19), 7),
+        Availability(9,date(2025, 11, 12), date(2025, 11, 19), 8)
     ]
 
 
@@ -94,7 +100,9 @@ def test_delete_record(db_connection):
         Availability(4,date(2025,12,10), date(2025,12,31), 3),
         Availability(5,date(2025,11,15), date(2025,11,30), 4),
         Availability(6,date(2025,12,1), date(2025,12,15), 5),
-        Availability(7,date(2025,11,10), date(2025,11,20), 6)
+        Availability(7,date(2025,11,10), date(2025,11,20), 6),
+        Availability(8,date(2025, 11, 12), date(2025, 11, 19), 7),
+        Availability(9,date(2025, 11, 12), date(2025, 11, 19), 8)
     ]
 
 

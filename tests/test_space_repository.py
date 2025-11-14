@@ -69,6 +69,8 @@ def test_create_space(db_connection):
         Space(4,'Modern Loft', 'Bright open-plan loft in downtown Manchester with skyline views.', 200.00, 4, 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop'),
         Space(5,'Countryside Retreat', 'Peaceful farmhouse surrounded by fields and trails.', 130.00, 5, 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop'),
         Space(6,'Studio Flat', 'Compact studio ideal for solo travellers, near Oxford city centre.', 95.00, 6, 'https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&h=600&fit=crop'),
-        Space(7, "Kent Retreat", "Breath of fresh air", 200.00, 2, None)
+        Space(7, 'Riverside Loft', 'Bright open-plan loft with modern amenities and views of the River Thames.', 140.00, 7, 'https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=800&h=600&fit=crop'),
+        Space(8, 'Cosy Garden Cottage', 'Charming cottage with a private garden patio, perfect for a peaceful weekend stay.', 120.00, 7, 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=800&h=600&fit=crop'),
+        Space(9, "Kent Retreat", "Breath of fresh air", 200.00, 2, None)
        
     ]
