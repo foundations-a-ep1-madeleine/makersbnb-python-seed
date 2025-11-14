@@ -63,3 +63,9 @@ class BookingRepository:
             'UPDATE bookings SET confirmed = FALSE WHERE id = %s',
             [booking_id])
         return None
+    def create(self, booking):
+        self._connection.execute(
+            'INSERT INTO bookings (date, confirmed, space_id, user_id) VALUES (%s, %s, %s, %s)',
+            [booking.date, booking.confirmed, booking.space_id, booking.user_id]
+        )
+        return None
