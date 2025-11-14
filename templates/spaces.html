@@ -59,10 +59,13 @@
             {% endif %}
           </div>
         </form>
+        {% if logged_in %}
+          <div class="enter-space-container">
+            <a href="/create-space" class="enter-space">Upload your space</a>
+          </div>
+        {% endif %}
       </header>
 
-
-      <a href="/create-space" class="enter-space">Upload your space</a>
 
       <div class="spaces-grid">
         {% for space in spaces %}
