@@ -355,7 +355,7 @@ def request_booking(user, space_id):
         date=booking_date_str,
         confirmed=False,
         space_id=space_id,
-        user_id=user.id
+        renter_id=user.id
     )
     booking_repo.create(new_booking)
 

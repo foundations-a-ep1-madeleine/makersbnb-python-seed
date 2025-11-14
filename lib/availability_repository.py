@@ -51,7 +51,7 @@ class AvailabilityRepository():
         self._connection.execute('DELETE FROM availabilities WHERE id = %s',[id])
         return None
 
-def is_date_available(self, space_id, booking_date):
+    def is_date_available(self, space_id, booking_date):
         if isinstance(booking_date, str):
             booking_date = date.fromisoformat(booking_date)
 
