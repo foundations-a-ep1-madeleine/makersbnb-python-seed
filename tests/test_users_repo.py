@@ -8,7 +8,7 @@ def test_get_all_users(db_connection):
     users = repository.all()
 
    
-    assert len(users) == 6
+    assert len(users) == 7
 
     assert users[0].name == 'Isaac Madgewick'
     assert users[0].email == 'isaacm@example.com'
@@ -35,7 +35,7 @@ def test_create_user(db_connection):
 
     all_users = repository.all()
    
-    assert len(all_users) == 7
+    assert len(all_users) == 8
     assert all_users[-1].name == "Test User"
 
 def test_delete_user(db_connection):
@@ -45,7 +45,6 @@ def test_delete_user(db_connection):
 
     all_users = repository.all()
     
-    assert len(all_users) == 5
+    assert len(all_users) == 6
     
     assert all_users[0].name == 'Sabia Jeyaratnam'
-
