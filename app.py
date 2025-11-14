@@ -309,7 +309,7 @@ def get_bookings(user):
     booking_repo = BookingRepository(connection)
     hosted_bookings = booking_repo.get_by_host(user.id)
     rented_bookings = booking_repo.get_by_renter(user.id)
-    return render_template('requests.html', rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
+    return render_template('requests.html', user=user, rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database

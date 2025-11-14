@@ -41,12 +41,12 @@
             <div class="shape shape-2"></div>
             <div class="shape shape-3"></div>
             </div>
-            <h1>Your Bookings</h1>
+            <h1>Hi, {{ user.name }}</h1>
             <p class="subtitle">View your sent and received booking requests</p>
         </header>
 
         <div class="bookings-container">
-            <div class="received bookings-grid">
+            <div class="sent bookings-grid">
                 {% for booking in rented_bookings %}
                 <div class="received booking-card">
                     <div class="received booking-card-text-container">
