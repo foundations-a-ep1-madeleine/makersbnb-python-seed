@@ -57,14 +57,6 @@ def serve_login(user):
 def test_login(user):
     return user.name
 
-# @app.route('/login', methods=['POST'])
-# def user_login():
-#     connection = get_flask_database_connection(app)
-#     user_repo = UserRepository(connection)
-    
-#     user_email = request.form['email']
-#     user_password = request.form['password']
-
 @app.route('/signup', methods=['GET'])
 def serve_signup():
     return render_template('signup.html', error=False)
@@ -156,7 +148,10 @@ def guide_delete(user_id):
 @app.route('/create-space', methods=['GET'])
 @token_required
 def create_space(user):
-    return render_template('create_space.html')
+    if not isinstance(user, User):
+        return redirect(url_for('serve_login'))
+    
+    return render_template('create_space.html', logged_in=isinstance(user, User))
 
 @app.route('/spaces/<int:id>', methods=['GET'])
 @token_required

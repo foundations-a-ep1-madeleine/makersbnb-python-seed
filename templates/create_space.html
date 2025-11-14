@@ -12,17 +12,24 @@
 </head>
 <body>
     <nav class="header">
-        <ul>
-            <li class="logo"><a class="logo-link" href="/spaces"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></a></li>
-            <li class="links">
-                <ul>
-                    <li><a href="/signup">Sign Up</a></li>
-                    <p>|</p>
-                    <li><a href="/about">About</a></li>
-                </ul>
-            </li>
-        </ul>
+      <ul>
+        <li class="logo"><a class="logo-link" href="/spaces"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></a></li>
+        <li class="links">
+          <ul>
+            {% if logged_in %}
+              <li><a href="/requests">Account</a></li>
+              <p>|</p>
+            {% endif %}
+            {% if not logged_in %}
+                <li><a href="/login">Login</a></li>
+            {% else %}
+                <li> <a href="/logout">Log out</a> </li>
+            {% endif %}
+          </ul>
+        </li>
+      </ul>
     </nav>
+    
             <div class="homepage-container">
             <header class="homepage-header">
                 <div class="geometric-animation geometric-animation-right">
