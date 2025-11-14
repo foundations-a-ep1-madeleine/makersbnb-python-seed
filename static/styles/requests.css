@@ -15,4 +15,11 @@
     padding: 20px;
     border: 1px solid lightgray;
     border-radius: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+.booking-image {
+    width: 200px;
+    border-radius: 15px;
 }

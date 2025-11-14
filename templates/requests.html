@@ -13,17 +13,12 @@
   <body>
     <nav class="header">
       <ul>
-        <li class="logo"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></li>
+        <li class="logo"><a class="logo-link" href="/spaces"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></a></li>
         <li class="links">
           <ul>
-            <li><a href="/about">About</a></li>
-            {% if not logged_in %}
-                <p>|</p>
-                <li><a href="/login">Login</a></li>
-            {% else %}
-                <p>|</p>
-                <li> <a href="/logout">Log out</a> </li>
-            {% endif %}
+            <li><a href="/spaces">Spaces</a></li>
+            <p>|</p>
+            <li> <a href="/logout">Log out</a></li>
           </ul>
         </li>
       </ul>
