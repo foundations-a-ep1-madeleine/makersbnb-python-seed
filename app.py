@@ -52,6 +52,11 @@ def serve_login(user):
         return redirect(url_for('get_space'))
     return render_template('login.html', error=False)
 
+@app.route('/testlogin', methods=['GET'])
+@token_required
+def test_login(user):
+    return user.name
+
 # @app.route('/login', methods=['POST'])
 # def user_login():
 #     connection = get_flask_database_connection(app)
