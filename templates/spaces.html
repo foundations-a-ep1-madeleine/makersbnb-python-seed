@@ -15,12 +15,13 @@
         <li class="logo"><a class="logo-link" href="/spaces"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></a></li>
         <li class="links">
           <ul>
-            <li><a href="/about">About</a></li>
+            {% if logged_in %}
+              <li><a href="/requests">Account</a></li>
+              <p>|</p>
+            {% endif %}
             {% if not logged_in %}
-                <p>|</p>
                 <li><a href="/login">Login</a></li>
             {% else %}
-                <p>|</p>
                 <li> <a href="/logout">Log out</a> </li>
             {% endif %}
           </ul>

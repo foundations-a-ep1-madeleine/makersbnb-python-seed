@@ -20,10 +20,6 @@ def test_navigation_links(page, test_web_address):
     expect(sign_up_link).to_be_visible()
     expect(sign_up_link).to_have_attribute("href", "/login")
 
-    about_link = page.get_by_role("link", name="About")
-    expect(about_link).to_be_visible()
-    expect(about_link).to_have_attribute("href", "/about")
-
 
 def test_login_form_elements(page, test_web_address):
     page.goto(f"http://{test_web_address}/signup")
