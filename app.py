@@ -134,12 +134,29 @@ def get_space(user):
                          start_date=start_date_str, end_date=end_date_str)
 
 @app.route('/spaces', methods=['POST'])
-def create_space():
+@token_required
+def post_space(user):
+
+    if not isinstance(user, User):
+        return redirect(url_for('serve_login'))
+
     connection = get_flask_database_connection(app)
     repository = SpaceRepository(connection)
-    space = Space(None, request.form['name'], request.form['description'], request.form['price'], request.form['user_id'])
+    space = Space(None, request.form['name'], request.form['description'], request.form['price'], user.id, request.form['image_url'])
     space = repository.create(space)
     return "Space added successfully"
+
+@app.route("/space/<id>", methods=["DELETE"])
+def guide_delete(user_id):
+    connection = get_flask_database_connection(app)
+    repository = SpaceRepository(connection)
+    repo = repository.delete(id)
+    return "Space deleated successfully"
+
+@app.route('/create-space', methods=['GET'])
+@token_required
+def create_space(user):
+    return render_template('create_space.html')
 
 @app.route('/spaces/<int:id>', methods=['GET'])
 @token_required
