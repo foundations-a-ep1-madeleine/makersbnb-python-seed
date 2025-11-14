@@ -44,6 +44,9 @@
                 <label for="password">Password</label>
             </div>
             <input type="submit" value="Sign-up">
+            {% if error == True %}
+                <p class="login-title" style="font-size: 8pt;">{{errormsg}}</p>
+            {% endif %}
         </form>
     </div>
     <!-- Content here -->
