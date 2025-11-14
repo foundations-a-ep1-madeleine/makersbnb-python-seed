@@ -57,3 +57,15 @@ class BookingRepository:
         self._connection.execute(
             'DELETE FROM bookings WHERE id = %s', [id])
         return None
+    
+    def deny(self, booking_id):
+        self._connection.execute(
+            'UPDATE bookings SET confirmed = FALSE WHERE id = %s',
+            [booking_id])
+        return None
+    def create(self, booking):
+        self._connection.execute(
+            'INSERT INTO bookings (date, confirmed, space_id, user_id) VALUES (%s, %s, %s, %s)',
+            [booking.date, booking.confirmed, booking.space_id, booking.renter_id]
+        )
+        return None

@@ -337,11 +337,14 @@ def create_space_availability():
 
 
 @app.route('/spaces/<int:id>/book', methods=['GET', 'POST'])
-def book_space(id):
+@token_required
+def book_space(user,id):
     """Placeholder booking route: echoes selected dates for the given space.
 
     Accepts either GET (query params `dates=...`) or POST (form `dates` fields).
     """
+    if not isinstance(user, User):
+        return redirect(url_for('serve_login'))
     if request.method == 'POST':
         dates = request.form.getlist('dates')
     else:
@@ -365,6 +368,63 @@ def get_bookings(user):
     hosted_bookings = booking_repo.get_by_host(user.id)
     rented_bookings = booking_repo.get_by_renter(user.id)
     return render_template('requests.html', rented_bookings = rented_bookings, hosted_bookings = hosted_bookings )
+
+@app.route('/bookings/<int:booking_id>/deny', methods=['POST'])
+@token_required
+def deny_booking(user, booking_id):
+    if not isinstance(user, User):
+        return "You must be logged in to perform this action.", 401
+
+    connection = get_flask_database_connection(app)
+    booking_repo = BookingRepository(connection)
+    space_repo = SpaceRepository(connection)
+
+    booking = booking_repo.get_by_id(booking_id)
+    if not booking:
+        return "Booking not found.", 404
+
+    space = space_repo.find(booking.space_id)
+    if not space:
+        return "Associated space not found.", 404
+
+    if space.user_id != user.id:
+        return "You are not authorized to deny this booking.", 403
+
+    booking_repo.deny(booking_id)
+
+    return redirect(url_for('get_bookings'))
+
+@app.route('/spaces/<int:space_id>/bookings', methods=['POST'])
+@token_required
+def request_booking(user, space_id):
+    if not isinstance(user, User):
+        return "You must be logged in to make a booking.", 401
+
+    connection = get_flask_database_connection(app)
+
+    booking_date_str = request.form.get('date')
+    if not booking_date_str:
+        return "Booking date is required.", 400
+
+    availability_repo = AvailabilityRepository(connection)
+    is_available = availability_repo.is_date_available(space_id, booking_date_str)
+
+    if not is_available:
+        return "The selected date is not available for booking.", 409
+
+    booking_repo = BookingRepository(connection)
+
+    new_booking = Booking(
+        id=None,
+        date=booking_date_str,
+        confirmed=False,
+        space_id=space_id,
+        renter_id=user.id
+    )
+    booking_repo.create(new_booking)
+
+    return redirect(url_for('get_bookings'))
+
 
 
 # These lines start the server if you run this file directly
