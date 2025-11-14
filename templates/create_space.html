@@ -12,17 +12,24 @@
 </head>
 <body>
     <nav class="header">
-        <ul>
-            <li class="logo"><a class="logo-link" href="/spaces"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></a></li>
-            <li class="links">
-                <ul>
-                    <li><a href="/signup">Sign Up</a></li>
-                    <p>|</p>
-                    <li><a href="/about">About</a></li>
-                </ul>
-            </li>
-        </ul>
+      <ul>
+        <li class="logo"><a class="logo-link" href="/spaces"><img class="logo-img" src="/static/logo.webp" alt="makersbnb logo"><p>makersbnb</p></a></li>
+        <li class="links">
+          <ul>
+            {% if logged_in %}
+              <li><a href="/requests">Account</a></li>
+              <p>|</p>
+            {% endif %}
+            {% if not logged_in %}
+                <li><a href="/login">Login</a></li>
+            {% else %}
+                <li> <a href="/logout">Log out</a> </li>
+            {% endif %}
+          </ul>
+        </li>
+      </ul>
     </nav>
+    
             <div class="homepage-container">
             <header class="homepage-header">
                 <div class="geometric-animation geometric-animation-right">
@@ -39,26 +46,25 @@
                 <p class="subtitle">Share your space weather it be a cozy apartment to countryside retreat</p>
             </header>
     <!-- Content here -->
-    <div class="content">
+    <div class="create-space">
         
-        <form action="/submit-space" method="POST" class="space-form">
+        <form action="/spaces" method="POST" class="space-form">
             <h2 class="space-name">Space</h2>
             <div class="name-container input-container">
-                <input type="name" id="name" name="Name" placeholder=" " required>
+                <input type="text" id="name" name="name" placeholder=" " required>
                 <label for="name">Name</label>
-    
             </div>
              <div class="description-container input-container">
-                <input type="description" id="description" name="description" placeholder=" " required>
+                <input type="text" id="description" name="description" placeholder=" " required>
                 <label for="description">Description</label>
             </div>
             <div class="price-container input-container">
-                <input type="price" id="price" name="price" placeholder=" " required>
+                <input type="text" id="price" name="price" placeholder=" " required>
                 <label for="price">Price</label>
               </div>
             <div class="user_id-container input-container">
-                <input type="user_id" id="user_id" name="user_id" placeholder=" " required>
-                <label for="user_id">User_id</label>
+                <input type="text" id="image_url" name="image_url" placeholder=" " required>
+                <label for="image_url">Image URL</label>
             </div>
             <input type="submit" value="Submit Space">
         </form>

@@ -16,7 +16,7 @@ def test_create_booking_for_available_date(db_connection, web_client):
 
     repo = BookingRepository(db_connection)
     all_bookings = repo.all()
-    assert len(all_bookings) == 7
+    assert len(all_bookings) == 11
     newest_booking = all_bookings[-1]
     assert newest_booking.space_id == 1
     assert newest_booking.renter_id == 2
@@ -36,4 +36,4 @@ def test_create_booking_for_unavailable_date_fails(db_connection, web_client):
 
     repo = BookingRepository(db_connection)
     all_bookings = repo.all()
-    assert len(all_bookings) == 6
+    assert len(all_bookings) == 10
