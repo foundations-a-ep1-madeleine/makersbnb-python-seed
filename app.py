@@ -337,11 +337,14 @@ def create_space_availability():
 
 
 @app.route('/spaces/<int:id>/book', methods=['GET', 'POST'])
-def book_space(id):
+@token_required
+def book_space(user,id):
     """Placeholder booking route: echoes selected dates for the given space.
 
     Accepts either GET (query params `dates=...`) or POST (form `dates` fields).
     """
+    if not isinstance(user, User):
+        return redirect(url_for('serve_login'))
     if request.method == 'POST':
         dates = request.form.getlist('dates')
     else:
