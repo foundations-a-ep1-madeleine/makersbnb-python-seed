@@ -13,7 +13,7 @@ def test_get_spaces(page, test_web_address, db_connection):
 
     # Check that space cards are rendered in the grid
     space_cards = page.locator(".space-card")
-    expect(space_cards).to_have_count(6)
+    expect(space_cards).to_have_count(8)
     
     # Check that the first space has the correct name
     first_space_name = page.locator(".space-name").first
@@ -70,10 +70,6 @@ def test_post_space_availability(db_connection, web_client):
     response = web_client.get("/spaces/2/availability")
 
     assert response.status_code == 200
-    # assert response.data.decode("utf-8") == "\n".join([
-    #     "Availability (3, 2025-11-05, 2025-11-25, 2)",
-    #     "Availability (8, 2025-05-27, 2025-05-29, 2)"
-    # ])
 
     expected_json = [
         {
@@ -83,7 +79,7 @@ def test_post_space_availability(db_connection, web_client):
             "space_id": 2,
         },
         {
-            "id": 8,
+            "id": 10,
             "start_date": "2025-05-27",
             "end_date": "2025-05-29",
             "space_id": 2,
@@ -106,7 +102,7 @@ def test_signup_backend_correct(db_connection, web_client):
     assert response.status_code == 201
 
     repo = UserRepository(db_connection)
-    user = repo.find(7)
+    user = repo.find(8)
 
     assert user.name == "John Smith" and user.email == "johns@xyz123.com"
     assert bcrypt.checkpw("reallygoodpassword123!".encode('utf-8'), user.password_hash.encode("utf-8")) == True
@@ -123,7 +119,23 @@ def test_signup_backend_incorrect(db_connection, web_client):
     assert response.status_code == 201
 
     repo = UserRepository(db_connection)
-    user = repo.find(7)
+    user = repo.find(8)
 
     assert user.name == "John Smith" and user.email == "johns@xyz123.com"
     assert bcrypt.checkpw("nottheactualpasswordwhat".encode('utf-8'), user.password_hash.encode("utf-8")) == False
+
+# Example of how to test with a logged in account #
+def test_login_testing(db_connection, web_client):
+    db_connection.seed("seeds/makersbnb.sql")
+
+    # login using test account #
+    web_client.post('/login', data={
+        'email': 'pytest@pytest.com',
+        'password': 'password!'
+    })
+
+    # do any get or post requests #
+    response = web_client.get("/testlogin")
+
+    assert response.status_code == 200
+    assert response.data.decode('utf-8') == "Testing Account"

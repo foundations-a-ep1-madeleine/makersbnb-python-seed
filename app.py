@@ -2,7 +2,8 @@ import os
 import jwt
 import bcrypt
 from lib.authentication_utility import valid_password, hash_password, compare_password_hash
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone, timedelta, date
+import calendar
 from functools import wraps
 from flask import Flask, request, render_template, jsonify, url_for, redirect, make_response
 from lib.database_connection import get_flask_database_connection
@@ -50,7 +51,12 @@ def token_required(f):
 def serve_login(user):
     if isinstance(user, User):
         return redirect(url_for('get_space'))
-    return render_template('login.html')
+    return render_template('login.html', error=False)
+
+@app.route('/testlogin', methods=['GET'])
+@token_required
+def test_login(user):
+    return user.name
 
 # @app.route('/login', methods=['POST'])
 # def user_login():
@@ -62,7 +68,7 @@ def serve_login(user):
 
 @app.route('/signup', methods=['GET'])
 def serve_signup():
-    return render_template('signup.html')
+    return render_template('signup.html', error=False)
 
 @app.route('/spaces', methods=['GET'])
 @token_required
@@ -93,7 +99,90 @@ def get_space_by_user_id(user, id):
         host = user_repo.find(space.user_id)
     host_name = host.name if host else None
 
-    return render_template('single_space_id.html', space=space, host_name=host_name, logged_in=isinstance(user, User))
+    # Build available dates set from availability repository
+    availability_repo = AvailabilityRepository(connection)
+    availabilities = availability_repo.find_by_space_id(id)
+
+    # Expand availability ranges into individual ISO dates using stdlib
+    available_dates = set()
+    for period in availabilities:
+        start = period.start_date
+        end = period.end_date
+
+        if isinstance(start, str):
+            start = date.fromisoformat(start)
+        if isinstance(end, str):
+            end = date.fromisoformat(end)
+
+        d = start
+        while d <= end:
+            available_dates.add(d.isoformat())
+            d = d + timedelta(days=1)
+
+    # Determine month/year to show (allow ?year=YYYY&month=MM)
+    try:
+        month = int(request.args.get('month') or date.today().month)
+        year = int(request.args.get('year') or date.today().year)
+    except Exception:
+        month = date.today().month
+        year = date.today().year
+
+    # Build month grid (list of weeks, each week is list of day dicts)
+    def build_month_grid(year, month, available_iso_set):
+        cal = calendar.Calendar(firstweekday=6)  # Week starts on Sunday
+        weeks = []
+        for week in cal.monthdatescalendar(year, month):
+            week_cells = []
+            for d in week:
+                iso = d.isoformat()
+                in_month = (d.month == month)
+                available = iso in available_iso_set
+                week_cells.append({
+                    'date': d,
+                    'iso': iso,
+                    'in_month': in_month,
+                    'available': available,
+                    'day': d.day,
+                })
+            weeks.append(week_cells)
+        return weeks
+
+    calendar_weeks = build_month_grid(year, month, available_dates)
+
+    month_name = calendar.month_name[month]
+
+    # compute previous and next month/year for server-side navigation
+    if month == 1:
+        prev_month = 12
+        prev_year = year - 1
+    else:
+        prev_month = month - 1
+        prev_year = year
+
+    if month == 12:
+        next_month = 1
+        next_year = year + 1
+    else:
+        next_month = month + 1
+        next_year = year
+
+    base_path = request.path
+
+    return render_template(
+        'single_space_id.html',
+        space=space,
+        host_name=host_name,
+        logged_in=isinstance(user, User),
+        calendar_weeks=calendar_weeks,
+        calendar_month=month,
+        calendar_year=year,
+        calendar_month_name=month_name,
+        calendar_prev_month=prev_month,
+        calendar_prev_year=prev_year,
+        calendar_next_month=next_month,
+        calendar_next_year=next_year,
+        calendar_base_path=base_path,
+    )
 
 @app.route('/signup', methods=['POST'])
 def create_user():
@@ -104,18 +193,19 @@ def create_user():
     email = request.form['email']
     password = request.form['password']
 
-    if repository.find_by_email(email) != None:
+    if isinstance(repository.find_by_email(email), User):
         # account already exists
-        return render_template('signup.html', error = "Please enter an email that isn't already in use!"), 202
+        return render_template('signup.html', errormsg = "Email already in use!", error=True), 202
 
     #TODO - password validation
     if not valid_password(password):
-        return render_template('signup.html', error = "Please enter a valid password. > 7 characters, including 1 or more !£$%"), 202
+        print("posting")
+        return render_template('signup.html', errormsg = "Include 1+ !£$% character", error=True), 202
     hashed_password = hash_password(password)
 
     repository.create(User(None, name, email, hashed_password.decode('utf-8')))
 
-    return render_template('login.html'), 201
+    return render_template('login.html', error=False), 201
 
 @app.route('/login', methods=['POST'])
 def attempt_login():
@@ -127,13 +217,13 @@ def attempt_login():
 
     if not isinstance(repository.find_by_email(email), User):
         print("email wrong?")
-        return render_template('login.html', error = "One or more of your credentials was incorrect!")
+        return render_template('login.html', errormsg="Wrong credentials!", error=True)
     
     user = repository.find_by_email(email)
     password_hash = user.password_hash
     if compare_password_hash(password, password_hash) != True:
         print("password wrong:", password)
-        return render_template('login.html', error = "One or more of your credentials was incorrect!")
+        return render_template('login.html', errormsg="Wrong credentials!", error=True)
     
     #password is right and email is right
     print("Success")
@@ -189,6 +279,25 @@ def create_space_availability():
     repository = AvailabilityRepository(connection)
     repository.create(Availability(None, string_to_date(request.form['start_date']), string_to_date(request.form['end_date']), request.form['space_id']))
     return "Availability added"
+
+
+@app.route('/spaces/<int:id>/book', methods=['GET', 'POST'])
+def book_space(id):
+    """Placeholder booking route: echoes selected dates for the given space.
+
+    Accepts either GET (query params `dates=...`) or POST (form `dates` fields).
+    """
+    if request.method == 'POST':
+        dates = request.form.getlist('dates')
+    else:
+        dates = request.args.getlist('dates')
+
+    connection = get_flask_database_connection(app)
+    space_repo = SpaceRepository(connection)
+    space = space_repo.find(id)
+
+    return render_template('book_placeholder.html', space=space, dates=dates)
+
 
 # this displays the bookings to the host  and the bookings that have been rented by the same user
 @app.route('/requests', methods=['GET'])
