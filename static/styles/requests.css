@@ -1,8 +1,8 @@
 .bookings-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 20px;
+    gap: 20px;
+    padding: 20px 40px;
 }
 
 .bookings-grid {
@@ -11,15 +11,44 @@
     gap: 10px;
 }
 
+.bookings-grid-title {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
 .booking-card {
     padding: 20px;
     border: 1px solid lightgray;
     border-radius: 5px;
     display: flex;
-    gap: 10px;
+    gap: 20px;
 }
 
 .booking-image {
     width: 200px;
     border-radius: 15px;
+}
+
+.booking-card-link {
+    font-size: 22px;
+    font-weight: 600;
+    color: black;
+}
+
+.booking-card-buttons {
+    padding-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.booking-card-buttons > button {
+    padding: 8px 20px;
+    background: #FF6B35;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
 }
