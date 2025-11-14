@@ -42,6 +42,23 @@
         </div>
         <h1>All Spaces</h1>
         <p class="subtitle">Browse our complete collection of available spaces</p>
+        
+        <form method="get" action="/spaces" class="date-filter-form">
+          <div class="filter-inputs">
+            <div class="filter-field">
+              <label for="start_date">Check-in</label>
+              <input type="date" id="start_date" name="start_date" value="{{ start_date or '' }}">
+            </div>
+            <div class="filter-field">
+              <label for="end_date">Check-out</label>
+              <input type="date" id="end_date" name="end_date" value="{{ end_date or '' }}">
+            </div>
+            <button type="submit" class="filter-button">Search</button>
+            {% if start_date or end_date %}
+            <a href="/spaces" class="clear-filter">Clear</a>
+            {% endif %}
+          </div>
+        </form>
       </header>
 
       <div class="spaces-grid">
