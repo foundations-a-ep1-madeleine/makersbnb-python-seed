@@ -75,8 +75,64 @@ def serve_signup():
 def get_space(user):
     connection = get_flask_database_connection(app)
     space_repo = SpaceRepository(connection)
-    spaces = space_repo.all()
-    return render_template('spaces.html', spaces=spaces, logged_in=isinstance(user, User))
+    
+    # Get date filter parameters
+    start_date_str = request.args.get('start_date')
+    end_date_str = request.args.get('end_date')
+    
+    # If no dates provided, show all spaces
+    if not start_date_str or not end_date_str:
+        spaces = space_repo.all()
+        return render_template('spaces.html', spaces=spaces, logged_in=isinstance(user, User), 
+                             start_date=start_date_str, end_date=end_date_str)
+    
+    # Parse dates
+    try:
+        start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+        end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()
+    except ValueError:
+        spaces = space_repo.all()
+        return render_template('spaces.html', spaces=spaces, logged_in=isinstance(user, User),
+                             start_date=start_date_str, end_date=end_date_str, 
+                             error="Invalid date format")
+    
+    # Validate date range
+    if start_date > end_date:
+        spaces = space_repo.all()
+        return render_template('spaces.html', spaces=spaces, logged_in=isinstance(user, User),
+                             start_date=start_date_str, end_date=end_date_str,
+                             error="Check-out date must be after check-in date")
+    
+    # Filter spaces by availability
+    availability_repo = AvailabilityRepository(connection)
+    all_spaces = space_repo.all()
+    filtered_spaces = []
+    
+    for space in all_spaces:
+        availabilities = availability_repo.find_by_space_id(space.id)
+        
+        # Expand availability ranges to ISO date set
+        available_dates = set()
+        for avail in availabilities:
+            current = avail.start_date
+            while current <= avail.end_date:
+                available_dates.add(current.isoformat())
+                current += timedelta(days=1)
+        
+        # Check if all requested dates are available
+        current = start_date
+        all_dates_available = True
+        while current <= end_date:
+            if current.isoformat() not in available_dates:
+                all_dates_available = False
+                break
+            current += timedelta(days=1)
+        
+        if all_dates_available:
+            filtered_spaces.append(space)
+    
+    return render_template('spaces.html', spaces=filtered_spaces, logged_in=isinstance(user, User),
+                         start_date=start_date_str, end_date=end_date_str)
 
 @app.route('/spaces', methods=['POST'])
 def create_space():
