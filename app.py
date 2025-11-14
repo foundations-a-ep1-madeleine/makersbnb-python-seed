@@ -367,7 +367,7 @@ def book_space(user,id):
     else:
         dates = request.args.getlist('dates')
 
-    return render_template('', space=space, dates=dates)
+    return redirect(url_for("get_bookings"))
 
 
 # this displays the bookings to the host  and the bookings that have been rented by the same user
