@@ -127,3 +127,19 @@ def test_signup_backend_incorrect(db_connection, web_client):
 
     assert user.name == "John Smith" and user.email == "johns@xyz123.com"
     assert bcrypt.checkpw("nottheactualpasswordwhat".encode('utf-8'), user.password_hash.encode("utf-8")) == False
+
+# Example of how to test with a logged in account #
+def test_login_testing(db_connection, web_client):
+    db_connection.seed("seeds/makersbnb.sql")
+
+    # login using test account #
+    web_client.post('/login', data={
+        'email': 'pytest@pytest.com',
+        'password': 'password!'
+    })
+
+    # do any get or post requests #
+    response = web_client.get("/testlogin")
+
+    assert response.status_code == 200
+    assert response.data.decode('utf-8') == "Testing Account"
