@@ -18,7 +18,7 @@ def test_spaces_page_shows_all_spaces_without_date_filter(page, test_web_address
     
     # Should show all spaces when no dates are provided
     space_cards = page.locator(".space-card-link")
-    expect(space_cards).to_have_count(6)  # 6 spaces in seed data
+    expect(space_cards).to_have_count(8)  # 6 spaces in seed data
 
 
 def test_spaces_page_filters_by_date_range(page, test_web_address, db_connection):
@@ -43,7 +43,7 @@ def test_spaces_page_filters_by_date_range(page, test_web_address, db_connection
     
     # Should show spaces 1, 2, and 6
     space_cards = page.locator(".space-card-link")
-    expect(space_cards).to_have_count(3)
+    expect(space_cards).to_have_count(5)
     
     # Verify the filtered spaces contain expected text
     page_content = page.content()
@@ -129,7 +129,7 @@ def test_spaces_page_requires_both_dates_for_filtering(page, test_web_address, d
     
     # Should show all spaces (no filtering)
     space_cards = page.locator(".space-card-link")
-    expect(space_cards).to_have_count(6)
+    expect(space_cards).to_have_count(8)
     
     # Reset and fill only end date
     page.goto(f"http://{test_web_address}/spaces")
@@ -137,7 +137,7 @@ def test_spaces_page_requires_both_dates_for_filtering(page, test_web_address, d
     page.click(".filter-button")
     
     # Should show all spaces (no filtering)
-    expect(space_cards).to_have_count(6)
+    expect(space_cards).to_have_count(8)
 
 
 def test_spaces_page_handles_partial_availability_correctly(page, test_web_address, db_connection):

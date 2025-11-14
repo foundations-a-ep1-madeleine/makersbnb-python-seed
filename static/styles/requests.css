@@ -1,0 +1,25 @@
+.bookings-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 20px;
+}
+
+.bookings-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.booking-card {
+    padding: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+.booking-image {
+    width: 200px;
+    border-radius: 15px;
+}
