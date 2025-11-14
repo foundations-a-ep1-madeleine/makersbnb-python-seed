@@ -13,7 +13,6 @@ from lib.space_repository import SpaceRepository
 from lib.user import User
 from lib.user_repository import UserRepository
 from lib.space import Space
-from lib.booking_repository import BookingRepository
 from lib.date_serialization import string_to_date
 from lib.booking_repository import BookingRepository
 from lib.booking import Booking
